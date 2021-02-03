@@ -5,26 +5,58 @@ date: "3/2/2021"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+## **Parte 1: Descripción del activo CREAL.MX**
 
-## R Markdown
+![Caption](CREAL.png)
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Crédito Real inicia actividades en el año de 1993 con crédito al consumo otorgando créditos para la adquisición de bienes duraderos a través de su producto Crédito Tradicional. El año siguiente, en 1994 la empresa realizó su primera emisión de deuda en mercado local por 20 MDP. Hasta 2005 su negocio se centró en torno a los créditos para bienes duraderos para la compra de aparatos de línea blanco (estufas, lavadoras), otra actividad relevante es la compraventa de cuentas por cobrar.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Para el año de 2007, CREAL se fusionó con Crediplus, una empresa cuya actividad primaria era originar créditos personales, así CREAL inició su negocio de créditos grupales bajo la marca de "CrediEquipos". Para finales del mismo año, Crédito Real se asoció con Nexxus Capital (reconocido operador de fondos de inversión en capital privado) adquiriendo una participación accionaria del 22.5%.
 
-```{r cars}
-summary(cars)
-```
+En 2011 adquirió Grupo Kon tomando control del 49% de sus acciones. La adquisición se efectuó mediante la fusión de Crédito Real con Rasteroz, Futu-lem, de esta manera los miembros de las familias fundadores pasaron a ser accionistas directos de Crédito Real, quien a su vez adoptó la modalidad de Sociedad Anónima Promotora de Inversión. El 18 de Noviembre adquirió el 49% del capital social de Publiseg (uno de los principales distribuidores de créditos con pago vía nómina)
 
-## Including Plots
+Actualmente su actividad económica gira en torno a la realización habitual y profesional de operaciones de crédito, arrendamiento financiero y factoraje financiero (funciona como un intermediario financiero no bancario). La compañía ofrece soluciones financieras para los segmentos bajo y medio de la población, históricamente poco atendidos por el sistema bancario, sus productos son:
 
-You can also embed plots, for example:
+*   créditos con pago vía nómina.
+*   créditos de consumo.
+*   créditos para autos usados.
+*   créditos para pequeñas y medianas empresas.
+*   créditos grupales.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+Según datos del Instituto Nacional de Estadística y Geografía estos segmentos abarcan aproximadamente el 75.9% de la población nacional. El 31 de Diciembre de 2018, el monto principal de los créditos vigentes de la compañía era de $36,301.6 millones y contaba con 851,869 clientes.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+![Caption](Cartera_credito.png)
+
+Podemos observar como la cartera de créditos otorgados por la compañía tiene una tendencia creciente
+
+Por su parte, no solo tiene presencia en México, además, desde 2015 otorga soluciones financieras en 27 estados de Estados Unidos, de la misma manera tiene presencia en Costa Rica, Panamá, Honduras y Nicaragua, otorgando crédito al consumo, mediante la realización de operaciones de crédito y factoraje financiero. Sus oficinas se encuentran en la Ciudad de México en la Avenida Insurgentes Sur.
+
+Empresas con participación accionaria:
+  
+(@) Kondinero (99%)
+(@) Crédito Maestro (49%)
+(@) Credifiel (49%)
+(@) CR Fact (51%)
+(@) Instacredit (70%)
+(@) Camino Financial (26.93%)
+(@) Crédito Contigo (36.28%)
+(@) Somos Uno (23%)
+(@) Credilikeme (35.06%)
+
+
+### **¿Por qué comprar acciones de CREAL.mx?**
+
+* Cotiza desde el 9 de agosto de 2001.
+* Puesto 241 en el ranking de las 500 empresas más importantes de México en 2020.
+* Crédito Real adquirió la cartera de préstamos de nómina de Famsa por 11 mil 58 millones de pesos.
+* Logró cerrar una línea de crédito de 100 millones de dólares a un plazo de 7 años, con la Corporación Financiera Internacional de los Estados Unidos para el Desarrollo.
+
+
+
+### **Riesgos**
+
+i. Riesgo de Mercado.
+ii. Riesgo de Crédito.
+iii. Riesgo de Liquidez.
+iv. Riesgo de Negocios.
+v. Riesgo de Reputación.
