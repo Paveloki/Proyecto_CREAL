@@ -1,6 +1,5 @@
 ---
 title: "Credito Real"
-author: "Jose Pablo Vazquez"
 date: "3/2/2021"
 output: html_document
 ---
