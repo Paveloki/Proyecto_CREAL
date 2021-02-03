@@ -4,6 +4,11 @@ author: "Jose Pablo Vazquez"
 date: "3/2/2021"
 output: html_document
 ---
+## **Integrantes**
+### **Aniel Esthefania Villanueva Mendoza**
+### **Jesús Iván Lafarga Lizárrga**
+### **José Pablo Vázquez Tello**
+
 
 ## **Parte 1: Descripción del activo CREAL.MX**
 
