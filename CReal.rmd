@@ -1,12 +1,15 @@
 ---
 title: "Credito Real"
-author: "Jose Pablo Vazquez"
 date: "3/2/2021"
-output: html_document
+output: 
+  html_document:
+  toc: yes
+  toc_float: yes
+  number_sections: yes 
 ---
 ## **Integrantes**
 ### **Aniel Esthefania Villanueva Mendoza**
-### **Jesús Iván Lafarga Lizárrga**
+### **Jesús Iván Lafarga Lizárraga**
 ### **José Pablo Vázquez Tello**
 
 
@@ -34,7 +37,7 @@ Según datos del Instituto Nacional de Estadística y Geografía estos segmentos
 
 Podemos observar como la cartera de créditos otorgados por la compañía tiene una tendencia creciente
 
-Por su parte, no solo tiene presencia en México, además, desde 2015 otorga soluciones financieras en 27 estados de Estados Unidos, de la misma manera tiene presencia en Costa Rica, Panamá, Honduras y Nicaragua, otorgando crédito al consumo, mediante la realización de operaciones de crédito y factoraje financiero. Sus oficinas se encuentran en la Ciudad de México en la Avenida Insurgentes Sur.
+Por su parte, no solo tiene presencia en México, además, desde 2015 otorga soluciones financieras en 27 estados de Estados Unidos, de la misma manera tiene presencia en Costa Rica, Panamá, Honduras y Nicaragua, otorgando crédito al consumo, mediante la realización de operaciones de crédito y factoraje financiero. Sus oficinas se encuentran en la Ciudad de México en la Avenida Insurgentes Sur y cuenta con poco mas de 1160 empleados.
 
 Empresas con participación accionaria:
   
@@ -65,3 +68,53 @@ ii. Riesgo de Crédito.
 iii. Riesgo de Liquidez.
 iv. Riesgo de Negocios.
 v. Riesgo de Reputación.
+
+
+```{r eval=TRUE,message=FALSE, include=FALSE}
+library(quantmod)
+library(PerformanceAnalytics)
+library(fBasics)
+library(akima)
+library(normtest)
+library(tibble)
+library(crop)
+library(lubridate)
+library(ggplot2)
+```
+
+
+```{r include=FALSE}
+clave <- "CREAL.MX"
+datos <- new.env()
+
+
+loadSymbols(clave, from = "2016-01-01", to=today(), env=datos)
+precio <-datos[[clave]][,6]
+names(precio) <- clave
+
+```
+
+```{r}
+rendimiento <- na.omit(diff(log(precio)))
+chartSeries(rendimiento, name = paste("Rendimiento",clave), theme = "white", up.col="black", dn.col = "red")
+```
+
+
+```{r}
+chartSeries(precio,name = paste("Precio de",clave), theme = "white", up.col="black", dn.col = "red")
+```
+
+```{r}
+chartSeries(to.monthly(precio),name = paste("Precio de",clave), theme = "white", up.col="black", dn.col = "red")
+addBBands()
+```
+
+
+
+
+
+
+
+
+
+
