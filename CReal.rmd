@@ -1,19 +1,25 @@
 ---
 title: "Credito Real"
 date: "3/2/2021"
-output: 
+output:
   html_document:
-  toc: yes
-  toc_float: yes
-  number_sections: yes 
+    toc: yes
+    toc_float: yes
+    number_sections: yes
+  html_notebook:
+    toc: yes
+    toc_float: yes  
+    number_sections: yes
 ---
-## **Integrantes**
-### **Aniel Esthefania Villanueva Mendoza**
-### **Jesús Iván Lafarga Lizárraga**
-### **José Pablo Vázquez Tello**
+# **Integrantes**
+## **Aniel Esthefania Villanueva Mendoza**
+## **Jesús Iván Lafarga Lizárraga**
+## **José Pablo Vázquez Tello**
 
 
-## **Parte 1: Descripción del activo CREAL.MX**
+# **Parte 1: Descripción del activo CREAL.MX**
+
+En este sección cubriremos toda la descripción del giro de la empresa Crédito Real, algunas recomendaciones de por que comprar su acción y cuales son los principales riesgos a los que se enfrenta esta empresa, según la actividad a la que se dedica esta gran compañía financiera.
 
 ![Caption](CREAL.png)
 
@@ -52,7 +58,7 @@ Empresas con participación accionaria:
 (@) Credilikeme (35.06%)
 
 
-### **¿Por qué comprar acciones de CREAL.mx?**
+## **¿Por qué comprar acciones de CREAL.mx?**
 
 * Cotiza desde el 9 de agosto de 2001.
 * Puesto 241 en el ranking de las 500 empresas más importantes de México en 2020.
@@ -61,7 +67,7 @@ Empresas con participación accionaria:
 
 
 
-### **Riesgos**
+## **Riesgos**
 
 i. Riesgo de Mercado.
 ii. Riesgo de Crédito.
@@ -69,6 +75,11 @@ iii. Riesgo de Liquidez.
 iv. Riesgo de Negocios.
 v. Riesgo de Reputación.
 
+
+
+# **Parte 2: Análisis histórico del precio y del rendimiento**
+
+En esta sección nos concentraremos en hablar un poco más del precio y los rendimientos de Crédito Real, tocaremos a fondo las fluctuaciones que ha tenido la acción a lo largo de los últimos años, se tomarán datos desde 2016 hasta la actualidad para poder analizar de buena manera las oscilaciones en el valor del activo.
 
 ```{r eval=TRUE,message=FALSE, include=FALSE}
 library(quantmod)
@@ -94,18 +105,21 @@ names(precio) <- clave
 
 ```
 
-```{r}
+## **Rendimientos de Crédito Real desde el año 2016 hasta el día de hoy**
+
+```{r eval=TRUE,message=FALSE, include=TRUE, warning=FALSE, echo=FALSE}
 rendimiento <- na.omit(diff(log(precio)))
-chartSeries(rendimiento, name = paste("Rendimiento",clave), theme = "white", up.col="black", dn.col = "red")
+chartSeries(rendimiento, name = paste("Rendimiento de",clave), theme = "black", up.col="pink", dn.col = "red", show.grid= FALSE)
 ```
 
+## **Rendimientos de Crédito Real desde el año 2016 hasta el día de hoy**
 
-```{r}
-chartSeries(precio,name = paste("Precio de",clave), theme = "white", up.col="black", dn.col = "red")
+```{r eval=TRUE,message=FALSE, include=TRUE, warning=FALSE, echo=FALSE}
+chartSeries(precio,name = paste("Precio de",clave), theme = "black", up.col="pink", dn.col = "red", show.grid = FALSE)
 ```
 
-```{r}
-chartSeries(to.monthly(precio),name = paste("Precio de",clave), theme = "white", up.col="black", dn.col = "red")
+```{r eval=TRUE,message=FALSE, include=TRUE, warning=FALSE, echo=FALSE}
+chartSeries(to.monthly(precio),name = paste("Precio de",clave), theme = "black", up.col="green", dn.col = "red", show.grid = FALSE)
 addBBands()
 ```
 
