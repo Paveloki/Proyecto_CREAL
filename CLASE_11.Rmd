@@ -1,0 +1,122 @@
+---
+title: "Clase 11"
+author: "Jose Pablo Vazquez"
+date: "22/2/2021"
+output: html_document
+---
+
+
+Es un proceso estocástico, hemos visto que hay dos parámetros, la volatilidad (que matemáticamente equivale a la raíz de la varianza) y el rendimiento promedio (valor esperado). Para calcularlos, debemos primero obtener el cambio en el precio.
+
+Poner la ecuación de como calcular el rendimiento diario. Tenemos dos opciones, una con el cambio del precio y otra con los logaritmos. como el precio es diario, cualquiera es adecuada.
+
+
+```{r, include=FALSE}
+library(quantmod)
+library(PerformanceAnalytics)
+library(lubridate)
+library(tibble)
+library(moments) ## Es para hacer las pruebas de normalidad
+```
+
+## Rendimiento Diario y Anualizado
+
+```{r, include=FALSE}
+clave <- "CREAL.MX"
+datos <- new.env()
+loadSymbols(clave, from = "2016-01-01", to=today(), env=datos)
+precio <-datos[[clave]][,6]
+names(precio) <- clave
+```
+
+
+
+```{r}
+rendimiento <- na.omit(diff(log(precio)))
+```
+
+
+La volatilidad y el rendimiento son variables que dependen del tiempo
+
+- estamos usando todo el periodo de información desde el 2016 hasta el día de hoy
+```{r}
+RDP <- mean(rendimiento)
+RAP <- mean(rendimiento)*252
+
+VD <- as.numeric(sqrt(var(rendimiento)))
+VA <- as.numeric(sqrt(var(rendimiento)*252))
+
+Est <- tibble(Perodo="2016-Fecha", RendD = paste(round(RDP*100,5),"%"), VolD = paste(round(VD*100,5),"%"),  RendA = paste(round(RAP*100,5),"%"), VolA=paste(round(VA*100,5),"%"))
+Est
+```
+
+
+-Podemos obetenr estos parámetros por periodos
+
+
+```{r, include=FALSE}
+Rdp_2016 <- mean(rendimiento[year(rendimiento)==2016])
+Vdp_2016 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2016])))
+
+Rap_2016 <- mean(rendimiento[year(rendimiento)==2016])*252
+Vap_2016 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2016])*252))
+
+Est_2016 <- tibble(Perodo="2016", RendD = paste(round(Rdp_2016*100,5),"%"), VolD = paste(round(Vdp_2016*100,5),"%"),  RendA = paste(round(Rap_2016*100,5),"%"), VolA=paste(round(Vap_2016*100,5),"%"))
+Est_2016
+```
+
+
+```{r}
+rbind(Est, Est_2016)
+```
+
+
+## Normalidad en el rendimiento, en el precio y en el logaritmo del precio
+
+La teoría nos dice que el rendimiento tiene un comportamiento mas o menos normal. Debido a que tiene una deformación leptocúrtica
+
+Se hará una prueba formal de normalidad
+
+Jarque Bera (Aquí junto con mi equipo voy a investigar/recordad que es una prueba de normalidad y voy a poner su forma matemática)
+
+Relaciona el sesgo y la curtosis
+
+
+Ho: Existe normalidad en la variable
+Ha: No normalidad en la variable
+
+La regla es que si el estadístico es mayor a 9.2130, se rechaza Ho.
+
+```{r}
+JBP <- jarque.test(as.numeric(precio))
+JBR <- jarque.test(as.numeric(rendimiento))
+JBPL <- jarque.test(as.numeric(log(precio)))
+
+JB_est <- tibble(Periodo="2016-fecha", JB_precio = JBP[["statistic"]], JB_rend=JBR[["statistic"]], JB_logPrecio=JBPL[["statistic"]])
+JB_est
+```
+Se rechaza Ho, la variable no es normal.
+
+
+Con la informacion de la table nos damos cuenta de que todos los estadísticos son mayores a 9.2130, por lo cual , en ningún caso se pasa la prueba formal de normalidad.
+
+En el caso del rendimiento esto sucede por que su distribución presenta leptocurtosis
+
+
+```{r}
+kurtosis(rendimiento)
+skewness(rendimiento)
+```
+
+
+La curtosis, el sesgo y la normalidad dependen del tiempo
+
+
+
+
+
+
+
+
+
+
