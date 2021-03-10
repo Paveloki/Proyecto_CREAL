@@ -552,14 +552,81 @@ totalidad, por principal e intereses el día de hoy.
 
 # **Parte 3: Rendimientos y volatilidad. Pruebas de normalidad y estimación de probabilidades**
 
-```{r eval=TRUE, message=FALSE, include=TRUE, warning=FALSE, echo=FALSE}
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
 RDP <- mean(rendimiento)
 RAP <- RDP * 252
 VD <- as.numeric(sqrt(var(rendimiento)))
 VA <- as.numeric(sqrt(var(rendimiento)*252))
-Est <- tibble(Periodo="2016-Fecha", RendD = paste(round(RDP*100,5),"%"), VolD = paste(round(VD*100,5),"%"),  RendA = paste(round(RAP*100,5),"%"), VolA=paste(round(VA*100,5),"%"))
-Est
+Est <- tibble(Periodo="2016-Hoy", RendD = paste(round(RDP*100,5),"%"), VolD = paste(round(VD*100,5),"%"),  RendA = paste(round(RAP*100,5),"%"), VolA=paste(round(VA*100,5),"%"))
+```
+
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
+Rdp_2016 <- mean(rendimiento[year(rendimiento)==2016])
+Vdp_2016 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2016])))
+
+Rap_2016 <- mean(rendimiento[year(rendimiento)==2016])*252
+Vap_2016 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2016])*252))
+
+Est_2016 <- tibble(Periodo="2016", RendD = paste(round(Rdp_2016*100,5),"%"), VolD = paste(round(Vdp_2016*100,5),"%"),  RendA = paste(round(Rap_2016*100,5),"%"), VolA=paste(round(Vap_2016*100,5),"%"))
+```
+
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
+Rdp_2017 <- mean(rendimiento[year(rendimiento)==2017])
+Vdp_2017 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2017])))
+
+Rap_2017 <- mean(rendimiento[year(rendimiento)==2017])*252
+Vap_2017 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2017])*252))
+
+Est_2017 <- tibble(Periodo="2017", RendD = paste(round(Rdp_2017*100,5),"%"), VolD = paste(round(Vdp_2017*100,5),"%"),  RendA = paste(round(Rap_2017*100,5),"%"), VolA=paste(round(Vap_2017*100,5),"%"))
 ```
 
 
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
+Rdp_2018 <- mean(rendimiento[year(rendimiento)==2018])
+Vdp_2018 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2018])))
+
+Rap_2018 <- mean(rendimiento[year(rendimiento)==2018])*252
+Vap_2018 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2018])*252))
+
+Est_2018 <- tibble(Periodo="2018", RendD = paste(round(Rdp_2018*100,5),"%"), VolD = paste(round(Vdp_2018*100,5),"%"),  RendA = paste(round(Rap_2018*100,5),"%"), VolA=paste(round(Vap_2018*100,5),"%"))
+```
+
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
+Rdp_2019 <- mean(rendimiento[year(rendimiento)==2019])
+Vdp_2019 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2019])))
+
+Rap_2019 <- mean(rendimiento[year(rendimiento)==2019])*252
+Vap_2019 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2019])*252))
+
+Est_2019 <- tibble(Periodo="2019", RendD = paste(round(Rdp_2019*100,5),"%"), VolD = paste(round(Vdp_2019*100,5),"%"),  RendA = paste(round(Rap_2019*100,5),"%"), VolA=paste(round(Vap_2019*100,5),"%"))
+```
+
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
+Rdp_2020 <- mean(rendimiento[year(rendimiento)==2020])
+Vdp_2020 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2020])))
+
+Rap_2020 <- mean(rendimiento[year(rendimiento)==2020])*252
+Vap_2020 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2020])*252))
+
+Est_2020 <- tibble(Periodo="2020", RendD = paste(round(Rdp_2020*100,5),"%"), VolD = paste(round(Vdp_2020*100,5),"%"),  RendA = paste(round(Rap_2020*100,5),"%"), VolA=paste(round(Vap_2020*100,5),"%"))
+```
+
+```{r eval=TRUE, message=FALSE, include=TRUE, warning=FALSE, echo=FALSE}
+rbind(Est, Est_2016, Est_2017, Est_2018, Est_2019, Est_2020)
+```
+
+
+```{r}
+JBP <- jarque.test(as.numeric(precio))
+JBR <- jarque.test(as.numeric(rendimiento))
+JBPL <- jarque.test(as.numeric(log(precio)))
+
+JB_est <- tibble(Periodo="2016-hoy", JB_precio = JBP[["statistic"]], JB_rend=JBR[["statistic"]], JB_logPrecio=JBPL[["statistic"]])
+JB_est
+```
+
+```{r}
+kurtosis(rendimiento)
+skewness(rendimiento)
+```
 
