@@ -91,6 +91,7 @@ library(tibble)
 library(crop)
 library(lubridate)
 library(ggplot2)
+library(moments)
 ```
 
 
@@ -106,13 +107,20 @@ names(precio) <- clave
 ```
 
 ## **Rendimientos de Crédito Real desde el año 2016 hasta el día de hoy**
+La gráfica que esta se presenta a continuación, representa el rendimiento de nuestra acción, donde se puede observar el gran impacto que tuvo esta última crisis gracias a la pandemia.
 
 ```{r eval=TRUE,message=FALSE, include=TRUE, warning=FALSE, echo=FALSE}
 rendimiento <- na.omit(diff(log(precio)))
 chartSeries(rendimiento, name = paste("Rendimiento de",clave), theme = "black", up.col="pink", dn.col = "red", show.grid= FALSE)
 ```
 
-## **Rendimientos de Crédito Real desde el año 2016 hasta el día de hoy**
+## **Precio de Crédito Real desde el año 2016 hasta el día de hoy**
+
+En la siguiente grafica podemos ver el movimiento de nuestro activo Credito Real (CREAL), en el podemos ver una tendencia bajista con ciertos repuntes pero al final de cuenta no terminan rimpiendo esta tendencia, no presenta variacion estacional solo tendencia.
+
+En grandes rangos podemos notificar, lo que vemos en la grafica ha tenido caidas muy prominentes, tiene alzas consecuentes pero muy poco significantes para las bajas ya mencionadas un aspecto mas que cabe a notar es que en las mediciones que tenemos como son las banas de bollinger.Normalmente extrae informacion de los movimientos del activo para dar un rango de limites en tales bandas cuando las cifras del activo sobre pasan los limites de estas bandas tienden a seguir un comportamiento contrario al vienen siguiendo en ese momento, contrario a esta suposicion nuestro activo continuo en caida condicionando a las bandas de bollinger a recalibrar sus limites.
+
+En observaciones mas especificas podemos comentar que en el mes Agosto del año **2016** tuvo su primer caida promimente respecto a las fechas que se pidieron estipular en la grafica mas adelante se comentaran las razones asi como noticias con las cuales dan explicacion de este y mas movimientos que seguiremos acentuando, en las fechas de enero a agosto del año **2017** fue un periodo de alzas en el activo hasta al rededor del mes de semptiembre hasta finales de año en el mes de diciembre volvio a ser una secuencia pero ahora bajista formando un periodo de meses de perdida en el precio del activo asi este continua oscilando entre ganancias y perdidas en los meses continuando con su tendencia bajista hasta caer a su peor precio en 4 años en el mes de enero de **2019** su peor precio hasta ese momento, tuvo despues de esto una sucecion de subidas del precio de enero a julio del mismo año para permanecer en un precio estable por varios meses de 22 pesos a 24 pesos hasta su prominente y continua caida hasta la actualidad donde sigue peleando una dificil subida al precio que al dia de hoy esta en $11.37 pesos solo 1 peso arriba de sus peores precios historicos.
 
 ```{r eval=TRUE,message=FALSE, include=TRUE, warning=FALSE, echo=FALSE}
 chartSeries(precio,name = paste("Precio de",clave), theme = "black", up.col="pink", dn.col = "red", show.grid = FALSE)
@@ -124,11 +132,434 @@ addBBands()
 ```
 
 
+## Fechas importantes 
+
+- mes 8 del 2016 
+Registro una Caida prominente
+
+- mes 2 del 2017 
+Registro Alza prominente 
+
+- mes 8 del 2017 
+Registro una Alza
+
+- mes 12 del 2017
+Registro una Alza consecutiva 
+
+- mes 9 del 2018
+Registro de una baja prominente en continuacion de su tendencia
+
+- mes 01 del 2019
+Registro un comienzo de Alzas consecutivas
+
+- mes 05 del 2019
+Se mantuvo oscilando en un precio de 20 a 24 pesos 
+
+- mes 1 del 2020
+Registro una caida prominencial
+
+- mes 5 del 2020
+Registro una oscilacion de precio del activo entre 14 pesos y 10 pesos, en el segundo semestre hasta el termino del año.
+
+
+## Noticias e información financiera,
+**2016** 
+En este año la empresa tuvo una tendencia a la baja a pesar de su tendencia, en algunos respectivos meses a pesar de en todo el año ir con una tendencia baja tuvo algunas subidas en especificos meses debido a que recibio amortizaciones importantes por montos al rededor de 200 millones aproximadamente, todo esto no fue lo suficiente para revertir la tendencia bajista esto es debido a la deuda que tenia la empresa por mayores gastos por intereses por consolidación de Instacredit.
+
+
+
+## Política nacional  
+
+El aumento a las tasas perjudico mucho a la empresa.
+El Banco de México elevó la tasa de interés de referencia 50 puntos base, para ubicarse en 4.75%. Fue un aumento de casi el doble de lo que esperaba la banca privada. Sin embargo, el incremento no llega como una sorpresa, pues Banxico había realizado aumentos al precio del dinero de la misma magnitud en febrero y junio de este año.
+
+
+## Politica y económia Internacional  
+
+En Estados Unidos, la victoria de Trump en las presidenciales parece reforzar del otro lado del Atlántico un sentimiento similar al que había inspirado el Brexit: abandonar la integración económica regional, fomentar la producción nacional y volver al bilateralismo como medio para relacionarse con el resto del mundo.Las encuestas electorales y la sorpresa generada por los sucesos políticos (Brexit) en los mercados también han afectado el mercado de divisas. Estos sucesos tuvieron repercusion en todos los mercados internacionales sobre todo causando bajas en las diferentes divisas por lo tanto en nuestro activo
+
+
+## Información propia de la empresa
+Resumen:
+Con los datos de Banorte, sabemos que la caida que vemos en la grafica fue por el debilitamiento en el costo de fondeo a 9.5% atribuible al negative
+carry, mayores gastos por intereses por consolidación de Instacredit y efecto de alza de tasas. Hacia delante podrían mantener dicha presión
+
+
+Recibieron un monte de paga de 300 millones de pesos en **2016-08-04**, ampliaron el plazo de su programa que ofrecen certificados bursatiles a corto plazo por un monto de hasta $2,500'000,000.00 (dos mil quinientos millones de pesos 00/100 M.N.) por lo tanto se traduce en funcion de sus labores que tienen mas producto que ofrecer por lo tanto se puede considerar como un crecimiento de la empresa en **2016-08-19**,a la fecha de **2016-09-09** recibiern la amortizacion(pago) por el monto de  217'500,000.00.
+
+## Información oficial de la empresa (fecha exacta)
+**2016-08-04**
+AMORTIZACIÓN DE LAS EMISIONES CON CLAVE DE PIZARRA
+CREAL 00715 Y CREAL 00615
+Ciudad de México, a 04 de Agosto de 2016. Crédito Real, S.A.B. de C.V., SOFOM, E.R.
+("Crédito Real"), informa que los certificados bursátiles de corto plazo con clave de pizarra
+CREAL 00715, por un monto de $200'000,000.00 (doscientos millones de pesos 00/100
+M.N.), emitidos el día 03 de Septiembre de 2015, han sido amortizados en sus términos y
+en su totalidad, por principal e intereses el día de hoy. Así mismo, Crédito Real informa
+que los certificados bursátiles de corto plazo con clave de pizarra CREAL 00615, por un
+monto de $100'000,000.00 (cien millones de pesos 00/100 M.N.), emitidos el día 27 de
+Agosto de 2015, fueron amortizados en sus términos y en su totalidad, el día 28 de julio
+de 2016.
+
+que pudieran haber tenido un efecto en el comportamiento
+del precio, analizado con anterioridad.
+
+**2016-08-19**
+AMPLIACIÓN DEL PLAZO DEL PROGRAMA DE CERTIFICADOS BURSÁTILES
+DE CORTO PLAZO
+Ciudad de México, a 19 de agosto de 2016. Crédito Real, S.A.B. de C.V., SOFOM, E.R.,
+informa que ha ampliado, hasta el 15 de noviembre de 2016, el plazo para efectuar
+emisiones al amparo del programa de certificados bursátiles de corto plazo con carácter
+revolvente por un monto de hasta $2,500'000,000.00 (dos mil quinientos millones de
+pesos 00/100 M.N.) o su equivalente en Unidades de Inversión. Los certificados bursátiles
+objeto del programa se encuentran inscritos en el Registro Nacional de Valores bajo el
+número 2331-4.16-2014-010. Dicho programa recibió calificaciones de "HR 1", "mxA-1" y
+"F1 (mex)" por parte, respectivamente, de HR Ratings de México, S.A. de C.V., Standard
+& Poor's, S.A. de C.V., y Fitch México, S.A. de C.V.
+
+**2016-09-09**
+AMORTIZACIÓN DE LA EMISIÓN CREAL 00616
+Ciudad de México, a 09 de Septiembre de 2016. Crédito Real, S.A.B. de C.V., SOFOM, E.R.
+("Crédito Real"), informa que los certificados bursátiles de corto plazo con clave de pizarra
+CREAL 00616, por un monto de $217'500,000.00 (doscientos diecisiete millones
+quinientos mil pesos 00/100 M.N.), emitidos el día 17 de Junio de 2016, han sido
+amortizados en sus términos y en su totalidad, por principal e intereses el día de hoy.
+
+
+
+## Noticias e información financiera,
+**2017**
+Resumen:
+
+En este año podemos decir que fue un buen año para nuestro acrtivo CREAL ya que venia de una caida muy prominente del año anterior donde revirtio este movimiento para tener una alza consecutiva en los precios durante el primer semestre lamentablemente en el segundo semestre cayo en su maxima de precio para este año donde termino aproximadamente en 24 pesos aproximadamente de $29 en su precio maximo de este año. 
+En este año crédito Real incrementa su utilidad neta recurrente 12.4% respecto a su año pasado pero como se comenta en el segundo semestre de este año tuvo perdidas donde la utilidad neta disminuyó 7.2% a Ps. 345.3 millones debido a un aumento en el gasto por interés parcialmente explicado por un Negative Carry, originado por el excedente de los recursos sin utilizar del Senior Note 2023.Debido a los problemas ya mencionados tuvieron cambios en su administracion y anuncia que José Juan González Abundis, desempeñará en ese año el cargo de Director de Operaciones de Crédito Real a finales de año anuncia deuda debido a un “Coupon-Only Swap” fue contratado para cubrir sus Bonos Perpetuos a tasa fija en 9.56% para los primeros dos años, el cual es convertible a tasa variable desde el tercer año hasta el vencimiento, en el 2022.
+
+En general las caidas de la empresa fueron responsabilidad de la misma y no por ninguna accion externa del mercado.
+
+## económica  
+
+El contexto de recuperación económica contribuyó a la aceleración del comercio mundial, que, tras crecer un 2,5% en 2016, avanzó un 4,7% en 2017, y la elasticidad aparente del comercio con respecto al PIB mundial se elevó hasta el 1,3.En cuanto a las políticas fiscales de las economías avanzadas, se mantuvo un tono ligeramente expansivo en 2017, con impulsos fiscales positivos al rededor del mundo.
+
+
+## Política nacional  
+
+Este año inició la renegociación del Tratado de Libre Comercio de América del Norte y se enfrentaron diversas amenazas de rompimiento.Un incremento del 20% al precio de las gasolinas y diésel a principios de este año que afectaron a todo el pais .
+
+
+## Politica Internacional
+
+Kim Jong Un se dedicó durante 2017 a amenazar a Estados Unidos y al mundo con sus pruebas de misiles.Estas pruebas le han costado al gobierno de Kim más sanciones del Consejo de Seguridad de Naciones Unidas, incluso respaldadas por su aliados China y Rusia, afirmó el gobierno de Kim que podía alcanzar el territorio continental de Estados Unidos.
+Esto incremento la incertidumbre a nivel interncional por una posible tercera guerra mundial y esto movio los mercados globales.
+
+
+
+## Información propia de la empresa
+En **2017-02-03** recibieron la amortizacion de un monto de $250'000,000.00, **2017-02-21**de USD 110'000,000 (ciento diez millones de dólares moneda de curso legal en los Estados Unidos de América), en el margen financiero incrementó 24.8% para alcanzar Ps. 1,239.3 millones durante el 4T16, en comparación con Ps. 993.2 millones obtenidos durante el 4T15 en este año tuvieron cambios de administracion anuncia que José Juan González Abundis, desempeñará el cargo de Director de Operaciones de Crédito Real, en sustitución de Luis Ramón Rodríguez y anuncia hoy que un “Coupon-Only Swap” fue contratado para cubrir sus bonos Perpetuos a tasa fija en 9.56% para los primeros dos años, el cual es convertible a tasa variable desde el tercer año hasta el vencimiento, en el 2022.
+
+**2017-02-03**
+Ciudad de México, a 03 de Febrero de 2017. Crédito Real, S.A.B. de C.V., SOFOM, E.R.
+("Crédito Real"), informa que el certificado bursátil de corto plazo con clave de pizarra
+CREAL 01016, por un monto de $250'000,000.00 (doscientos cincuenta millones de pesos
+00/100 M.N.), emitido el día 12 de Septiembre de 2016, ha sido amortizado en sus
+términos y en su totalidad, por principal e intereses el día de hoy.
+
+
+**2017-02-21**
+NUEVA LÍNEA DE CRÉDITO
+Ciudad de México, a 21 de febrero de 2017. Crédito Real, S.A.B. de C.V., SOFOM, E.R.
+("Crédito Real"), informa la celebración de un contrato de crédito con Credit Suisse Ag.
+Cayman Islands Branch ("Credit Suisse"), por el que se otorga a Crédito Real un crédito
+simple por un monto de USD$110'000,000 (ciento diez millones de dólares moneda de
+curso legal en los Estados Unidos de América), con una tasa de interés fija anual en pesos,
+moneda nacional, de 7.22%, a un plazo de 3 años, cuyo capital e intereses están cubiertos
+por el respectivo instrumento financiero derivado. Los recursos serán destinados para el
+refinanciamiento de deuda.
+
+Acerca de Crédito Real
+Crédito Real es una institución financiera líder en México enfocada al otorgamiento de
+crédito con una plataforma diversificada de negocios que comprende principalmente:
+Nómina, Consumo, PYMES, Microcréditos y Autos. Crédito Real ofrece productos
+principalmente a los segmentos bajo y medio de la población, los cuales históricamente
+han estado poco atendidos por otras instituciones financieras. Las acciones de Crédito
+Real se encuentran listadas en la Bolsa Mexicana de Valores bajo la clave y serie "CREAL*"
+(Bloomberg: “CREAL*:MM”).
+
+**2017-02-22**
+Crédito Real incrementa su utilidad neta recurrente 12.4% en
+2016
+
+ La utilidad neta recurrente incrementó 12.4% durante el 2016. La utilidad neta anual incluye un
+efecto no recurrente procedente de la cancelación de la posición en derivados respecto al bono en
+dólares con vencimiento en 2019 durante el 3T16. Durante el 4T16 la utilidad neta disminuyó 7.2%
+a Ps. 345.3 millones, comparado con Ps. 371.9 millones en el 4T15. Durante el 4T16 se
+experimentó un aumento en el gasto por interés parcialmente explicado por un Negative Carry,
+originado por el excedente de los recursos sin utilizar del Senior Note 2023. Este efecto es reflejado
+en el Balance General en la línea de Inversiones en Valores, la cual finalizó con un saldo de Ps.
+992.7 millones, así como en la cuenta de Gastos por Intereses dentro del Estado de Resultados
+por Ps. 55.6 millones.
+ El margen financiero incrementó 24.8% para alcanzar Ps. 1,239.3 millones durante el 4T16, en
+comparación con Ps. 993.2 millones obtenidos durante el 4T15.
+ La cartera de crédito aumentó 35.9% alcanzando Ps. 23,927.0 millones al cierre del 4T16, en
+comparación con Ps. 17,609.6 millones al cierre del 4T15. Excluyendo el efecto de adquisición de
+Instacredit la cartera de crédito creció 10.9% AsA impulsada por los productos de Nómina y Autos.
+ El ROAE alcanzó 15.1% en el trimestre, mientras que el ROAA fue de 3.8%. En 2016, el ROAE y
+ROAA recurrente alcanzaron 18.4% y 4.5% respectivamente.
+ El costo de fondeo del trimestre aumentó a 9.7%, lo que representa un crecimiento de 360 puntos
+base contra el costo de fondeo de 6.1% obtenido en el 4T15. El incremento se explica por un
+Negative Carry mencionado anteriormente, un mayor costo de fondeo causado por la consolidación
+de Instacredit, así como por los constantes incrementos en la tasa de referencia en México.
+Excluyendo estos efectos el costo de fondeo hubiera alcanzado 7.1%. Por consiguiente, el Margen
+de Interés Neto disminuyo de 23.4% en el 4T15 a 21.2% AsA.
+ A través del año, la Compañía ha construido una sólida Estimación Preventiva para Riesgos
+Crediticios dentro del Estado de Resultados, incrementando de 117% a 148%, a pesar de que el
+índice de cartera vencida disminuyó de 2.4% en el 4T15 a 2.2% en el 4T16.
+ El índice de eficiencia incrementó a 57.6% desde 41.0% reportado el 4T15. Este índice incluye los
+gastos administrativos de los nuevos negocios. Excluyendo estos gastos, el índice de eficiencia
+hubiera alcanzado 48.0% Este incremento también es causado por el efecto negativo en el Margen
+de Interés Neto. 
+
+**2017-08-07**
+EMISIÓN DE LOS CERTIFICADOS BURSÁTILES DE CORTO PLAZO CON CLAVE DE PIZARRA
+CREAL 00717 Y AMORTIZACIÓN DE LA EMISIÓN CREAL 00117
+Ciudad de México, a 7 de septiembre de 2017. Crédito Real, S.A.B. de C.V., SOFOM, E.R.
+("Crédito Real"), informa la emisión de los certificados bursátiles que obran inscritos en
+el Registro Nacional de Valores bajo el número 2331-4.19-2017-011, al amparo del
+programa dual de colocación con carácter revolvente de certificados bursátiles por un
+monto de hasta $7,500'000,000.00 (siete mil quinientos millones de pesos 00/100 M.N.)
+o su equivalente en Unidades de Inversión, correspondientes a la séptima emisión, por
+un monto de $300'000,000.00 (trescientos millones de pesos 00/100 M.N.), con clave de
+pizarra “CREAL 00717” y fecha de vencimiento al 5 de abril de 2018, a una tasa TIIE + 90
+pbs.
+Adicionalmente, Crédito Real informa que los certificados bursátiles de corto plazo con
+clave de pizarra “CREAL 00117”, por un monto de $250'000,000.00 (doscientos cincuenta
+millones de pesos 00/100 M.N.), emitidos el día 9 de marzo de 2017, han sido amortizados
+en sus términos y en su totalidad, por principal e intereses el día de hoy.
+
+**2017-08-31**
+CAMBIOS EN LA ESTRUCTURA ORGANIZACIONAL DE CRÉDITO REAL, S.A.B. DE C.V.,
+SOFOM, E.R.
+Ciudad de México, a 31 de agosto de 2017. Crédito Real, S.A.B. de C.V., SOFOM, E.R.
+("Crédito Real"), anuncia que José Juan González Abundis, desempeñará el cargo de
+Director de Operaciones de Crédito Real, en sustitución de Luis Ramón Rodríguez, quien
+perseguirá otros intereses profesionales, con fecha efectiva al día 31 de agosto de 2017.
+El Ing. González aporta amplia experiencia a su nuevo cargo dentro de Crédito Real
+habiendo servido más de nueve años como alto directivo en Directodo México
+(“Kondinero”). Anteriormente ocupó el cargo de Director de Operaciones, donde
+participó en la fusión de la anterior tenedora de Kondinero con Crédito Real. Previo a este
+cargo, estuvo involucrado en diferentes departamentos dentro de Kondinero, como
+Director de Recursos Humanos y Gerente de Compras.
+El Ing. González es Ingeniero Industrial del Instituto Tecnológico de Monterrey y posee
+una Maestría en Finanzas de la misma institución.
+“Nos complace darle la bienvenida a José Juan como nuestro nuevo Director de
+Operaciones”, dijo Ángel Romanos, Director General de Crédito Real. “Su valiosa
+experiencia en el sector micro financiero de México y su extensa relación con Crédito Real
+lo posicionan como el candidato ideal para este puesto. Su entendimiento de la estrategia
+de Crédito Real, su clara visión y su ética de trabajo fuerte nos ayudarán a alcanzar nuevas
+sinergias operativas para contribuir en nuestra meta de generar mayores rendimientos
+para nuestros inversionistas.
+
+**2017-10-25**
+Incrementa 17.1% su cartera de
+crédito en el 3T17
+Durante el trimestre, se incrementó la participación de deuda colocada a tasa fija a un 52% de la
+deuda total consolidada.
+El costo de fondeo del trimestre aumentó a 11.2%, lo que representa un incremento de 160 pbs
+contra el 9.6% obtenido en el 3T16, esta variación se explica por los constantes ajustes al alza en
+la tasa de referencia en México.
+Durante el 3T17, la utilidad neta incrementó 7.0%, a Ps. 403.0 millones, comparado con Ps. 376.6
+millones en el 3T16. 
+La cartera de crédito aumentó 17.1% alcanzando Ps. 26,677.9 millones al cierre del 3T17, en
+comparación con Ps. 22,788.5 millones al cierre del 3T16. 
+
+**2017-12-07**
+CRÉDITO REAL ANUNCIA LA CONTRATACIÓN DE UN NUEVO INSTRUMENTO
+FINANCIERO DERIVADO POR SUS BONOS PERPETUOS
+Ciudad de México, a 7 de diciembre de 2017. CRÉDITO REAL, S.A.B. de C.V., SOFOM, E.R.
+("Crédito Real"), anuncia hoy que un “Coupon-Only Swap” fue contratado para cubrir sus
+Bonos Perpetuos a tasa fija en 9.56% para los primeros dos años, el cual es convertible a
+tasa variable desde el tercer año hasta el vencimiento, en el 2022.
+Derivado de que los instrumentos son Bonos Perpetuos, el principal se considera como
+capital al tipo de cambio histórico. Por consiguiente, el nuevo instrumento financiero
+derivado no implica ningún intercambio de capital al vencimiento, y sólo los pagos de
+intereses son intercambiados en dos monedas diferentes.
+
+
+
+## Noticias e información financiera,
+**2018** 
+Resumen:
+En este año amortizaron certificados bursátiles de largo plazo con clave de pizarra
+“CREAL-15”, por un monto de ,1’000,000,000.00, US 100 millones (cien millones de dólares) sea destinado a la adquisición de acciones propias de la Sociedad.
+
+Se recompraron 3,705,000 acciones aprecio de mercado, a través de su programa de recompra de acciones.Crédito Real creció 25.5 por ciento durante 2018, resultado impulsado principalmente por el crédito a pequeñas y medianas empresas (Pyme), segmento que tuvo un crecimiento de 158 por ciento.
+
+
+## Política nacional  
+
+La economía de México se desaceleró en los últimos tres meses de 2018 al crecer solo 0.3% debido a una caída en las actividades industriales, de acuerdo con la estimación oportuna del Producto Interno Bruto (PIB) divulgada este miércoles por el INEGI.
+
+La tasa estimada es inferior al avance de 0.8% registrado en el tercer trimestre de 2018, de acuerdo con cifras ajustadas por estacionalidad reportadas por el Instituto Nacional de Estadística y Geografía (INEGI).
+
+En 2019: A inicios de su gestión, el presidente Andrés Manuel López Obrador presentó el plan contra el huachicoleo y abordó el tema del gasolinazo. Afirmó que su gobierno evaluaba la posibilidad de aprovechar el precio bajo de las gasolinas a nivel internacional, para hacer una reducción en el precio final a los consumidores en nuestro país.                                                  Economia internacional julio 2010: La pandemia y el confinamiento en amplias partes del mundo provocaron pérdidas de 320 mil millones de dólares para el turismo mundial entre enero y mayo, según datos publicados este martes por la Organización Mundial del Turismo (OMT).
+
+## Politica y económia Internacional  
+
+2018 fue un año récord para las acciones, pero es uno que los inversionistas preferirían olvidar.
+
+El Dow cayó un 5,6%. El S&P 500 cayó un 6,4% y el Nasdaq cayó un 4%. Fue el peor año para las acciones desde 2008 y el segundo año en la última década en que Dow y S&P 500 cayeron. (El S&P 500 y el Dow cayeron ligeramente en 2015, pero el Nasdaq fue más alto ese año).
+
+Diciembre fue un mes particularmente terrible. El Dow cayó un 8,7%, su peor diciembre desde 1931. En un tramo de siete días, el Dow cayó 350 puntos o más seis veces. La víspera de Navidad de este año fue la peor para el índice.
+
+El temor a una guerra comercial global, provocada por las amenazas y acciones de la administración Trump contra socios comerciales, sigue siendo una fuente de preocupación para los mercados.
+
+Aunque la economía de los Estados Unidos ha estado fuerte, algunos temen que la Reserva Federal haya estado elevando las tasas demasiado rápido y que pueda ahogar el crecimiento económico. Algunas de las acciones tecnológicas de los EE.UU. que antes eran de alto vuelo, como Facebook, Apple y el Alphabet (Google) están ahora en baja.
+
+
+## Información propia de la empresa
+Resumen:
+En este año la empresa puso en marcha su plan de AMORTIZACIÓN DE LOS CERTIFICADOS BURSÁTILES DE CORTO PLAZO donde la empresa recompro acciones de bolsadebido a que se recompraron un total de 1.25 millones de acciones a precio de mercado, a través de su programa de recompra de acciones, durante la semanaterminada el 15 de junio de 2018. 
+
+Ademas tuvo pago de dividendos a sus accionistas por $0.50 centavos por accion.
+
+Tambien informa la AMORTIZACIÓN DE LOS CERTIFICADOS BURSÁTILES DE LARGO PLAZO, por un monto de $,1’000,000,000.00 todo esto como un plan de la empresa para fortalecerse en peridos de coto y largo plazo. 
+
+Lo anterior, con la finalidad de fortalecer el posicionamiento de las acciones de la Compañía en el mercado bajo el actual entorno
+económico-financiero concretaron compras a corto y planes de recompra a largo plazo durante este año a pesar de todo esto la empresa no tuvo un buen año terminando en caidas por la situacion internacional que paso todo el mundo con el temor de una guerra global comercial poniendo en una situacion de cuerda floja para los mercados pegandole hasta las empresas mas grandes a nivel mundial como  Facebook, Apple y el Alphabet (Google) que tambien estuvieron en baja este año.
 
 
 
 
+**2018-05-08**
+Ciudad de México, a 8 de mayo de 2018. En la asamblea general ordinaria y
+extraordinaria de accionistas de Crédito Real, S.A.B. de C.V., SOFOM, E.R. (“Crédito Real”)
+celebrada el pasado 25 de abril de 2018, se aprobó, entre otros, el pago de un dividendo
+a favor de los accionistas de Crédito Real por la cantidad de $0.50 (cincuenta centavos de
+peso, M.N.), por acción (el “Dividendo”). El Dividendo ha sido liquidado con fecha 8 de
+mayo de 2018, respecto de: (i) los accionistas que tienen su tenencia por medio de los
+respectivos intermediarios financieros, a través de S.D. Indeval Institución para el
+Depósito de Valores, S.A. de C.V., (INDEVAL); y, (ii) los accionistas que tienen la custodia
+física de los títulos de sus acciones, mediante transferencia electrónica a sus respectivas
+cuentas.
 
+**2018-06-07**
+Ciudad de México, a 7 de junio de 2018. Crédito Real, S.A.B. de C.V., SOFOM, E.N.R.
+(“Crédito Real”) anuncia que el día de hoy se recompraron 175,000 acciones a precio de
+mercado, a través de su programa de recompra de acciones. Lo anterior, con la finalidad
+de fortalecer el posicionamiento de las acciones de la Compañía en el mercado bajo el
+actual entorno económico-financiero.
+En este contexto, es importante destacar que en la Asamblea General Ordinaria de
+Accionistas de Crédito Real, celebrada el pasado 25 de abril de 2018, se aprobó, entre
+otros puntos, el monto máximo de recursos que podrán destinarse a la adquisición de
+acciones propias de la Sociedad durante el ejercicio social 2018 por la cantidad que sea
+igual al saldo de las utilidades netas de la Sociedad, incluyendo las retenidas existentes a
+la fecha de conclusión del ejercicio social de 2017.
+
+**2018-06-11**
+Ciudad de México, a 11 de junio de 2018. Crédito Real, S.A.B. de C.V., SOFOM, E.N.R.
+(“Crédito Real”) anuncia que el día de hoy se recompraron 250,000 acciones a precio de
+mercado, a través de su programa de recompra de acciones. Lo anterior, con la finalidad
+de fortalecer el posicionamiento de las acciones de la Compañía en el mercado bajo el
+actual entorno económico-financiero.
+En este contexto, es importante destacar que en la Asamblea General Ordinaria y de
+Accionistas de Crédito Real, celebrada el pasado 25 de abril de 2018, se aprobó, entre
+otros puntos, el monto máximo de recursos que podrán destinarse a la adquisición de
+acciones propias de la Sociedad durante el ejercicio social 2018 por la cantidad que sea
+igual al saldo de las utilidades netas de la Sociedad, incluyendo las retenidas existentes a
+la fecha de conclusión del ejercicio social de 2017.
+
+**2018-06-12**
+Ciudad de México, a 12 de junio de 2018. Crédito Real, S.A.B. de C.V., SOFOM, E.N.R.
+(“Crédito Real”) anuncia que el día de hoy se recompraron 250,000 acciones a precio de
+mercado, a través de su programa de recompra de acciones. Lo anterior, con la finalidad
+de fortalecer el posicionamiento de las acciones de la Compañía en el mercado bajo el
+actual entorno económico-financiero.
+En este contexto, es importante destacar que en la Asamblea General Ordinaria de
+Accionistas de Crédito Real, celebrada el pasado 25 de abril de 2018, se aprobó, entre
+otros puntos, el monto máximo de recursos que podrán destinarse a la adquisición de
+acciones propias de la Sociedad durante el ejercicio social 2018 por la cantidad que sea
+igual al saldo de las utilidades netas de la Sociedad, incluyendo las retenidas existentes a
+la fecha de conclusión del ejercicio social de 2017.
+
+**2018-06-13**
+Ciudad de México, a 13 de junio de 2018. Crédito Real, S.A.B. de C.V., SOFOM, E.N.R.
+(“Crédito Real”) anuncia que el día de hoy se recompraron 250,000 acciones a precio de
+mercado, a través de su programa de recompra de acciones. Lo anterior, con la finalidad
+de fortalecer el posicionamiento de las acciones de la Compañía en el mercado bajo el
+actual entorno económico-financiero.
+En este contexto, es importante destacar que en la Asamblea General Ordinaria de
+Accionistas de Crédito Real, celebrada el pasado 25 de abril de 2018, se aprobó, entre
+otros puntos, el monto máximo de recursos que podrán destinarse a la adquisición de
+acciones propias de la Sociedad durante el ejercicio social 2018 por la cantidad que sea
+igual al saldo de las utilidades netas de la Sociedad, incluyendo las retenidas existentes a
+la fecha de conclusión del ejercicio social de 2017.
+
+**2018-06-18**
+Ciudad de México, a 18 de junio de 2018. Crédito Real, S.A.B. de C.V., SOFOM, E.N.R.
+(“Crédito Real”) anuncia que se recompraron un total de 1.25 millones de acciones a
+precio de mercado, a través de su programa de recompra de acciones, durante la semana
+terminada el 15 de junio de 2018. Lo anterior, con la finalidad de fortalecer el
+posicionamiento de las acciones de la Compañía en el mercado bajo el actual entorno
+económico-financiero.
+En este contexto, es importante destacar que en la Asamblea General Ordinaria de
+Accionistas de Crédito Real, celebrada el 25 de abril de 2018, se aprobó, entre otros
+puntos, el monto máximo de recursos que podrán destinarse a la adquisición de acciones
+propias de la Sociedad durante el ejercicio social de 2018, por la cantidad que sea igual al
+saldo de las utilidades netas de la Sociedad, incluyendo las retenidas existentes a la fecha
+de conclusión del ejercicio social de 2017.
+
+**2018-12-08**
+- AMORTIZACIÓN DE LOS CERTIFICADOS BURSÁTILES DE CORTO PLAZO CON CLAVE DE
+PIZARRA DE LA EMISIÓN CREAL 00417 informa que los certificados bursátiles de corto plazo con clave de pizarra
+“CREAL 00417”, por un monto de $250'000,000.00 (doscientos cincuenta millones de
+pesos 00/100 M.N.), emitidos el día 8 de junio de 2017, han sido amortizados en sus
+términos y en su totalidad, por principal e intereses el día de ayer.
+
+**2018-12-11**
+AMORTIZACIÓN DE LOS CERTIFICADOS BURSÁTILES DE LARGO PLAZO CON CLAVE DE
+PIZARRA DE LA EMISIÓN CREAL-15
+Ciudad de México, a 11 de diciembre de 2017. Crédito Real, S.A.B. de C.V., SOFOM, E.R.
+("Crédito Real"), informa que los certificados bursátiles de largo plazo con clave de pizarra
+“CREAL-15”, por un monto de $,1’000,000,000.00 (mil millones de pesos 00/100 M.N.),
+emitidos el día 9 de octubre de 2015, han sido amortizados en sus términos y en su
+totalidad, por principal e intereses el día de hoy.
+
+**2018-12-21**
+AMORTIZACIÓN DE LOS CERTIFICADOS BURSÁTILES DE CORTO PLAZO CON CLAVE DE
+PIZARRA DE LA EMISIÓN CREAL 00517 Y CREAL 00617
+Ciudad de México, a 21 de diciembre de 2017. Crédito Real, S.A.B. de C.V., SOFOM, E.R.
+("Crédito Real"), informa que los certificados bursátiles de corto plazo con clave de pizarra
+“CREAL 00517”, por un monto de $200'000,000.00 (doscientos millones de pesos 00/100
+M.N.), emitidos el día 6 de julio de 2017 a una tasa TIIE +90 bps y que los certificados
+bursátiles de corto plazo con clave de pizarra “CREAL 00617”, por un monto de
+$200'000,000.00 (doscientos millones de pesos 00/100 M.N.), emitidos el día 3 de agosto
+de 2017 a una tasa TIIE + 85 bps, han sido amortizados en sus términos y en su totalidad,
+por principal e intereses el día de hoy.
+
+**2018-12-28**
+AMORTIZACIÓN DE LOS CERTIFICADOS BURSÁTILES DE CORTO PLAZO CON CLAVE DE
+PIZARRA DE LA EMISIÓN CREAL 00717 Y CREAL 00817
+Ciudad de México, a 28 de diciembre de 2017. Crédito Real, S.A.B. de C.V., SOFOM, E.R.
+("Crédito Real"), informa que los certificados bursátiles de corto plazo con clave de pizarra
+“CREAL 00717”, por un monto de $300'000,000.00 (trescientos millones de pesos 00/100
+M.N.), emitidos el día 7 de septiembre de 2017 a una tasa TIIE + 90 pbs y los certificados
+bursátiles de corto plazo con clave de pizarra “CREAL 00817”, por un monto de
+$300'000,000.00 (trescientos millones de pesos 00/100 M.N.), emitidos el día 5 de
+octubre de 2017 a una tasa TIIE + 79 pbs, han sido amortizados en sus términos y en su
+totalidad, por principal e intereses el día de hoy.
+
+
+
+
+# **Parte 3: Rendimientos y volatilidad. Pruebas de normalidad y estimación de probabilidades**
+
+```{r eval=TRUE, message=FALSE, include=TRUE, warning=FALSE, echo=FALSE}
+RDP <- mean(rendimiento)
+RAP <- RDP * 252
+VD <- as.numeric(sqrt(var(rendimiento)))
+VA <- as.numeric(sqrt(var(rendimiento)*252))
+Est <- tibble(Periodo="2016-Fecha", RendD = paste(round(RDP*100,5),"%"), VolD = paste(round(VD*100,5),"%"),  RendA = paste(round(RAP*100,5),"%"), VolA=paste(round(VA*100,5),"%"))
+Est
+```
 
 
 
