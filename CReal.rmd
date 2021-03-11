@@ -552,6 +552,9 @@ totalidad, por principal e intereses el día de hoy.
 
 # **Parte 3: Rendimientos y volatilidad. Pruebas de normalidad y estimación de probabilidades**
 
+## Rendimiento y Volatilidad (diaria y anualizada)
+Estimar el rendimiento y la volatilidad (diaria y anualizada) por periodos. Los periodos para considerar son; todo el año 2016, 2017, 2018, 2019, 2020, lo que vaya del año 2021 y todo el periodo 2016-2021.
+
 ```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
 RDP <- mean(rendimiento)
 RAP <- RDP * 252
@@ -611,22 +614,240 @@ Vap_2020 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2020])*252))
 Est_2020 <- tibble(Periodo="2020", RendD = paste(round(Rdp_2020*100,5),"%"), VolD = paste(round(Vdp_2020*100,5),"%"),  RendA = paste(round(Rap_2020*100,5),"%"), VolA=paste(round(Vap_2020*100,5),"%"))
 ```
 
-```{r eval=TRUE, message=FALSE, include=TRUE, warning=FALSE, echo=FALSE}
-rbind(Est, Est_2016, Est_2017, Est_2018, Est_2019, Est_2020)
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
+Rdp_2021 <- mean(rendimiento[year(rendimiento)==2021])
+Vdp_2021 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2021])))
+
+Rap_2021 <- mean(rendimiento[year(rendimiento)==2021])*252
+Vap_2021 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2021])*252))
+
+Est_2021 <- tibble(Periodo="2021", RendD = paste(round(Rdp_2021*100,5),"%"), VolD = paste(round(Vdp_2021*100,5),"%"),  RendA = paste(round(Rap_2021*100,5),"%"), VolA=paste(round(Vap_2021*100,5),"%"))
 ```
 
+```{r eval=TRUE, message=FALSE, include=TRUE, warning=FALSE, echo=FALSE}
+rbind(Est, Est_2016, Est_2017, Est_2018, Est_2019, Est_2020, Est_2021)
+```
 
-```{r}
+## Prueba de normalidad sobre el rendimiento (JARQUE-BERA).
+
+Para los mismos periodos que en el punto anterior, efectuar una prueba de normalidad sobre el rendimiento, el precio y el logaritmo del precio. Efectuar también la prueba de rendimiento estadísticamente igual a cero.
+
+Se hará una prueba formal de normalidad
+
+Jarque Bera (Aquí junto con mi equipo voy a investigar/recordad que es una prueba de normalidad y voy a poner su forma matemática)
+
+Relaciona el sesgo y la curtosis
+
+
+Ho: Existe normalidad en la variable
+Ha: No normalidad en la variable
+
+La regla es que si el estadístico es mayor a 9.2130, se rechaza Ho.
+
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
 JBP <- jarque.test(as.numeric(precio))
 JBR <- jarque.test(as.numeric(rendimiento))
 JBPL <- jarque.test(as.numeric(log(precio)))
 
 JB_est <- tibble(Periodo="2016-hoy", JB_precio = JBP[["statistic"]], JB_rend=JBR[["statistic"]], JB_logPrecio=JBPL[["statistic"]])
-JB_est
 ```
+
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
+JBP_2016 <- jarque.test(as.numeric(precio[year(precio)==2016]))
+JBR_2016 <- jarque.test(as.numeric(rendimiento[year(rendimiento)==2016]))
+JBPL_2016 <- jarque.test(as.numeric(log(precio[year(precio)==2016])))
+
+JB_est_2016 <- tibble(Periodo="2016", JB_precio = JBP_2016[["statistic"]], JB_rend=JBR_2016[["statistic"]], JB_logPrecio=JBPL_2016[["statistic"]])
+```
+
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
+JBP_2017 <- jarque.test(as.numeric(precio[year(precio)==2017]))
+JBR_2017 <- jarque.test(as.numeric(rendimiento[year(rendimiento)==2017]))
+JBPL_2017 <- jarque.test(as.numeric(log(precio[year(precio)==2017])))
+
+JB_est_2017 <- tibble(Periodo="2017", JB_precio = JBP_2017[["statistic"]], JB_rend=JBR_2017[["statistic"]], JB_logPrecio=JBPL_2017[["statistic"]])
+```
+
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
+JBP_2018 <- jarque.test(as.numeric(precio[year(precio)==2018]))
+JBR_2018 <- jarque.test(as.numeric(rendimiento[year(rendimiento)==2018]))
+JBPL_2018 <- jarque.test(as.numeric(log(precio[year(precio)==2018])))
+
+JB_est_2018 <- tibble(Periodo="2018", JB_precio = JBP_2018[["statistic"]], JB_rend=JBR_2018[["statistic"]], JB_logPrecio=JBPL_2018[["statistic"]])
+```
+
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
+JBP_2019 <- jarque.test(as.numeric(precio[year(precio)==2019]))
+JBR_2019 <- jarque.test(as.numeric(rendimiento[year(rendimiento)==2019]))
+JBPL_2019 <- jarque.test(as.numeric(log(precio[year(precio)==2019])))
+
+JB_est_2019 <- tibble(Periodo="2019", JB_precio = JBP_2019[["statistic"]], JB_rend=JBR_2019[["statistic"]], JB_logPrecio=JBPL_2019[["statistic"]])
+```
+
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
+JBP_2020 <- jarque.test(as.numeric(precio[year(precio)==2020]))
+JBR_2020 <- jarque.test(as.numeric(rendimiento[year(rendimiento)==2020]))
+JBPL_2020 <- jarque.test(as.numeric(log(precio[year(precio)==2020])))
+
+JB_est_2020 <- tibble(Periodo="2020", JB_precio = JBP_2020[["statistic"]], JB_rend=JBR_2020[["statistic"]], JB_logPrecio=JBPL_2020[["statistic"]])
+```
+
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
+JBP_2021 <- jarque.test(as.numeric(precio[year(precio)==2021]))
+JBR_2021 <- jarque.test(as.numeric(rendimiento[year(rendimiento)==2021]))
+JBPL_2021 <- jarque.test(as.numeric(log(precio[year(precio)==2021])))
+
+JB_est_2021 <- tibble(Periodo="2021", JB_precio = JBP_2021[["statistic"]], JB_rend=JBR_2021[["statistic"]], JB_logPrecio=JBPL_2021[["statistic"]])
+```
+
+```{r eval=TRUE, message=FALSE, include=TRUE, warning=FALSE, echo=FALSE }
+rbind(JB_est, JB_est_2016, JB_est_2017, JB_est_2018, JB_est_2019, JB_est_2020, JB_est_2021)
+```
+
+## Prueba de rendimiento (T-TEST)
+
+Ho: Media = 0
+Ha: Media diferente de cero
+
+Si el estadístico calculado es mayor al 2.3295, rechazar Ho.
+
+```{r eval=TRUE, message=FALSE, include=FALSE, warning=FALSE, echo=FALSE}
+prueba <- t.test(as.numeric(rendimiento)) 
+prueba_global <- abs(prueba[["statistic"]])
+prueba2016 <- t.test(as.numeric(rendimiento[year(rendimiento)==2016]))
+prueba_2016 <- abs(prueba2016[["statistic"]])
+prueba2017 <- t.test(as.numeric(rendimiento[year(rendimiento)==2017]))
+prueba_2017 <- abs(prueba2017[["statistic"]])
+prueba2018 <- t.test(as.numeric(rendimiento[year(rendimiento)==2018]))
+prueba_2018 <- abs(prueba2018[["statistic"]])
+prueba2019 <- t.test(as.numeric(rendimiento[year(rendimiento)==2019]))
+prueba_2019 <- abs(prueba2019[["statistic"]])
+prueba2020 <- t.test(as.numeric(rendimiento[year(rendimiento)==2020]))
+prueba_2020 <- abs(prueba2020[["statistic"]])
+prueba2021 <- t.test(as.numeric(rendimiento[year(rendimiento)==2021]))
+prueba_2021 <- abs(prueba2021[["statistic"]])
+```
+
+```{r Prueba de rendimiento estádisticamente igual a 0, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+rbind(prueba_global, prueba_2016, prueba_2017, prueba_2018, prueba_2019, prueba_2020, prueba_2021)
+```
+
+## Estimación del comportamiento del precio para el año 2020.
+
+Usar los parámetros 𝜇, 𝜎 (diarios) de la distribución del periodo 2020 y construir la ecuación 𝑑𝑠 =
+𝑠𝜇𝑑𝑡 + 𝑠𝜎𝑑𝑤 que representa una estimación del comportamiento del precio. Usar esta ecuación
+para construir una simulación usando valores aleatorios y proporcionar una estimación del precio
+dentro de 10, 20 y 40 días. Incluir un intervalo de confianza al 95% para las estimaciones.
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+mu_2020 <- mean(rendimiento[year(rendimiento)==2020])
+sigma_2020 <- as.numeric(sqrt(var(rendimiento[year(rendimiento)==2020])))
+mu_2020
+sigma_2020
+```
+
+$$dS = `r mu_2020`Sdt + `r sigma_2020`SdW$$
+
+Prueba de estimación del precio a 10, 20 y 40 días.
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+d <- length(precio)
+So <- as.numeric(precio[d])
+n <- 10000
+dt_10 <- 10
+simula_10 <- tibble(epsilon=rnorm(n), dS=mu_2020*dt_10*So+sigma_2020*So*sqrt(dt_10)*epsilon)
+PE_10 <- So+mean(simula_10$dS)
+Precio_Esp_10 <- tibble(Estimacion_a="10", PE = PE_10)
+```
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+dt_20 <- 20
+simula_20 <- tibble(epsilon=rnorm(n), dS=mu_2020*dt_20*So+sigma_2020*So*sqrt(dt_20)*epsilon)
+PE_20 <- So+mean(simula_20$dS)
+Precio_Esp_20 <- tibble(Estimacion_a="20", PE = PE_20)
+```
+
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+dt_40 <- 40
+simula_40 <- tibble(epsilon=rnorm(n), dS=mu_2020*dt_40*So+sigma_2020*So*sqrt(dt_40)*epsilon)
+PE_40 <- So+mean(simula_40$dS)
+Precio_Esp_40 <- tibble(Estimacion_a="40", PE = PE_40)
+```
+
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+rbind(Precio_Esp_10, Precio_Esp_20, Precio_Esp_40)
+```
+
+
+Intervalo de confianza al 95%.
+
+El intervalo de confianza se construye con:
+$$`r mu_2020`+-`r sigma_2020`*Z$$.
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+Z <- qnorm(0.975)
+Media_ds_10 <-mean(simula_10$dS) 
+DesS_ds_10 <- sqrt(var(simula_10$dS))
+P_Sup_10 <- So+Media_ds_10+Z*DesS_ds_10
+P_Inf_10 <- So+Media_ds_10-Z*DesS_ds_10
+Intervalo_10 <- tibble(Intervalo_de_Tiempo="10", P_Sup = P_Sup_10, P_Inf = P_Inf_10)
+```
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+Media_ds_20 <-mean(simula_20$dS) 
+DesS_ds_20 <- sqrt(var(simula_20$dS))
+P_Sup_20 <- So+Media_ds_20+Z*DesS_ds_20
+P_Inf_20 <- So+Media_ds_20-Z*DesS_ds_20
+Intervalo_20 <- tibble(Intervalo_de_Tiempo="20", P_Sup = P_Sup_20, P_Inf = P_Inf_20)
+```
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+Media_ds_40 <-mean(simula_40$dS) 
+DesS_ds_40 <- sqrt(var(simula_40$dS))
+P_Sup_40 <- So+Media_ds_40+Z*DesS_ds_40
+P_Inf_40 <- So+Media_ds_40-Z*DesS_ds_40
+Intervalo_40 <- tibble(Intervalo_de_Tiempo="40", P_Sup = P_Sup_40, P_Inf = P_Inf_40)
+```
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+rbind(Intervalo_10, Intervalo_20, Intervalo_40)
+```
+
+$$ln(S_t) = -ln(S_o) + (`r mu_2020` - (`r sigma_2020`^2)/2) dt + `r sigma_2020`dW$$
+
+Dentro 3, 6, 9 y 12 meses
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+d <- length(precio)
+So <- as.numeric(precio[d])
+n <- 10000
+dt_cuatr <- 1/4
+simula_cuatr_log <- tibble(epsilon=rnorm(n), lnSt=-log(So)+ (mu_2020-(((sigma_2020)^2)/2))*dt_cuatr + sigma_2020*sqrt(dt_cuatr)*epsilon)
+
+simula_cuatr <- exp(simula_cuatr_log$lnSt)
+
+
+#Valor_Esperado_cuatr <- (mu_2020 - ((sigma_2020)^2)/2)*dt_cuarto
+
+#PE_cuarto <- Valor_Esperado_cuatr+ simula_cuatr
+#Precio_Esp_3_meses <- tibble(Estimacion_a="3 meses", PE = PE_cuarto)
+```
+
 
 ```{r}
-kurtosis(rendimiento)
-skewness(rendimiento)
+st <- tibble(epsilon=rnorm(n),St=So*exp((mu_2020-((sigma_2020)^2)/2 )*dt_cuarto +sigma_2020*sqrt(dt_cuarto)*epsilon))
+st_mean <-mean(st$St) + ((mu_2020-((sigma_2020)^2)/2)*dt_cuarto) 
 ```
 
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+d <- length(precio)
+So <- as.numeric(precio[d])
+n <- 10000
+dt_cuarto <- 1/2
+simula_sem_log <- tibble(epsilon=rnorm(n), lnSt=-log(So)+(mu_2020-((sigma_2020)^2)/2)*dt_sem + sigma_2020*sqrt(dt_sem)*epsilon)
+simula_cautr <- exp(simula_sem_log)
+Valor_Esperado <- (mu_2020 - ((sigma_2020)^2)/2)*dt_cuarto
+PE_cuarto <- So+mean(simula_cuatr$lnSt)
+Precio_Esp_3_meses <- tibble(Estimacion_a="3 meses", PE = PE_cuarto)
+```
