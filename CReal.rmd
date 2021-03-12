@@ -884,7 +884,6 @@ PE_9 <- Valor_Esperado_9+ simula_9
 ```{r}
 dt_year <- 1
 simula_year_log <- tibble(epsilon=rnorm(n), lnSt=log(So)+ (mu_2020-(((sigma_2020)^2)/2))*dt_year + sigma_2020*sqrt(dt_year)*epsilon)
-
 simula_year <- mean(exp(simula_year_log$lnSt))
 Valor_Esperado_year <- (mu_2020 - ((sigma_2020)^2)/2)*dt_year
 PE_year <- Valor_Esperado_year+ simula_year
@@ -907,7 +906,7 @@ $$`r mu_2020`\pm`r sigma_2020`*Z$$.
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 mean_log_3 <- Valor_Esperado_tri
-sigma_log_3 <- sqrt(var(simula_tri_log$lnSt))
+sigma_log_3 <- sqrt(var(exp(simula_tri_log$lnSt)))
 P_Sup_log_3 <- log(So)+mean_log_3+Z*sigma_log_3
 P_Inf_log_3 <- log(So)+mean_log_3-Z*sigma_log_3
 P_Sup_3mes <- exp(P_Sup_log_3)
@@ -919,7 +918,7 @@ Intervalo_log_3 <- tibble(Intervalo_de_Tiempo="3_meses", P_Sup = P_Sup_3mes, P_I
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 mean_log_6 <- Valor_Esperado_sem
-sigma_log_6 <- sqrt(var(simula_sem_log$lnSt))
+sigma_log_6 <- sqrt(var(exp(simula_sem_log$lnSt)))
 P_Sup_log_6 <- log(So)+mean_log_6+Z*sigma_log_6
 P_Inf_log_6 <- log(So)+mean_log_6-Z*sigma_log_6
 P_Sup_6mes <- exp(P_Sup_log_6)
@@ -931,7 +930,7 @@ Intervalo_log_6 <- tibble(Intervalo_de_Tiempo="6_meses", P_Sup = P_Sup_6mes, P_I
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 mean_log_9 <- Valor_Esperado_tri
-sigma_log_9 <- sqrt(var(simula_9_log$lnSt))
+sigma_log_9 <- sqrt(var(exp(simula_9_log$lnSt)))
 P_Sup_log_9 <- log(So)+mean_log_9+Z*sigma_log_9
 P_Inf_log_9 <- log(So)+mean_log_9-Z*sigma_log_9
 P_Sup_9mes <- exp(P_Sup_log_9)
@@ -942,7 +941,7 @@ Intervalo_log_9 <- tibble(Intervalo_de_Tiempo="9_meses", P_Sup = P_Sup_9mes, P_I
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 mean_log_12 <- Valor_Esperado_year
-sigma_log_12 <- sqrt(var(simula_year_log$lnSt))
+sigma_log_12 <- sqrt(var(exp(simula_year_log$lnSt)))
 P_Sup_log_12 <- log(So)+mean_log_12+Z*sigma_log_12
 P_Inf_log_12 <- log(So)+mean_log_12-Z*sigma_log_12
 P_Sup_year <- exp(P_Sup_log_12)
