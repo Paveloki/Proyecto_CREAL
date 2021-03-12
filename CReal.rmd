@@ -783,7 +783,7 @@ rbind(Precio_Esp_10, Precio_Esp_20, Precio_Esp_40)
 Intervalo de confianza al 95%.
 
 El intervalo de confianza se construye con:
-$$`r mu_2020`+-`r sigma_2020`*Z$$.
+$$`r mu_2020`\pm`r sigma_2020`*Z$$.
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 Z <- qnorm(0.975)
@@ -814,40 +814,144 @@ Intervalo_40 <- tibble(Intervalo_de_Tiempo="40", P_Sup = P_Sup_40, P_Inf = P_Inf
 rbind(Intervalo_10, Intervalo_20, Intervalo_40)
 ```
 
-$$ln(S_t) = -ln(S_o) + (`r mu_2020` - (`r sigma_2020`^2)/2) dt + `r sigma_2020`dW$$
+$$ln(S_t) = ln(S_o) + (`r mu_2020` - (`r sigma_2020`^2)/2) dt + `r sigma_2020`dW$$
 
 Dentro 3, 6, 9 y 12 meses
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 d <- length(precio)
 So <- as.numeric(precio[d])
 n <- 10000
-dt_cuatr <- 1/4
-simula_cuatr_log <- tibble(epsilon=rnorm(n), lnSt=-log(So)+ (mu_2020-(((sigma_2020)^2)/2))*dt_cuatr + sigma_2020*sqrt(dt_cuatr)*epsilon)
+dt_tri <- 1/4
+simula_tri_log <- tibble(epsilon=rnorm(n), lnSt=log(So)+ (mu_2020-(((sigma_2020)^2)/2))*dt_tri + sigma_2020*sqrt(dt_tri)*epsilon)
 
-simula_cuatr <- exp(simula_cuatr_log$lnSt)
+simula_tri <- mean(exp(simula_tri_log$lnSt))
+Valor_Esperado_tri <- (mu_2020 - ((sigma_2020)^2)/2)*dt_tri
+PE_tri <- Valor_Esperado_tri+ simula_tri
 
+#St_tri <- tibble(epsilon=rnorm(n),St=So*exp((mu_2020-((sigma_2020)^2)/2 )*dt_tri +sigma_2020*sqrt(dt_tri)*epsilon))
+#St_esperada_tri <-mean(St_tri$St) + ((mu_2020-((sigma_2020)^2)/2)*dt_tri) 
 
-#Valor_Esperado_cuatr <- (mu_2020 - ((sigma_2020)^2)/2)*dt_cuarto
-
-#PE_cuarto <- Valor_Esperado_cuatr+ simula_cuatr
-#Precio_Esp_3_meses <- tibble(Estimacion_a="3 meses", PE = PE_cuarto)
+#Precio_Esp_3_meses <- tibble(Estimacion_a="3 meses", PE = St_esperada_tri)
 ```
 
 
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+# <- 1/2
+#St_seme <- tibble(epsilon=rnorm(n),St=So*exp((mu_2020-((sigma_2020)^2)/2 )*dt_seme +sigma_2020*sqrt(dt_seme)*epsilon))
+#St_esperada_seme <-mean(St_seme$St) + ((mu_2020-((sigma_2020)^2)/2)*dt_seme) 
+
+#Precio_Esp_6_meses <- tibble(Estimacion_a="6 meses", PE = St_esperada_seme)
+```
+
 ```{r}
-st <- tibble(epsilon=rnorm(n),St=So*exp((mu_2020-((sigma_2020)^2)/2 )*dt_cuarto +sigma_2020*sqrt(dt_cuarto)*epsilon))
-st_mean <-mean(st$St) + ((mu_2020-((sigma_2020)^2)/2)*dt_cuarto) 
+dt_sem <- 1/2
+simula_sem_log <- tibble(epsilon=rnorm(n), lnSt=log(So)+ (mu_2020-(((sigma_2020)^2)/2))*dt_sem + sigma_2020*sqrt(dt_sem)*epsilon)
+
+simula_sem <- mean(exp(simula_sem_log$lnSt))
+Valor_Esperado_sem <- (mu_2020 - ((sigma_2020)^2)/2)*dt_sem
+PE_sem <- Valor_Esperado_sem+ simula_sem
 ```
 
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
-d <- length(precio)
-So <- as.numeric(precio[d])
-n <- 10000
-dt_cuarto <- 1/2
-simula_sem_log <- tibble(epsilon=rnorm(n), lnSt=-log(So)+(mu_2020-((sigma_2020)^2)/2)*dt_sem + sigma_2020*sqrt(dt_sem)*epsilon)
-simula_cautr <- exp(simula_sem_log)
-Valor_Esperado <- (mu_2020 - ((sigma_2020)^2)/2)*dt_cuarto
-PE_cuarto <- So+mean(simula_cuatr$lnSt)
-Precio_Esp_3_meses <- tibble(Estimacion_a="3 meses", PE = PE_cuarto)
+#dt_9 <- 3/4
+#St_9 <- tibble(epsilon=rnorm(n),St=So*exp((mu_2020-((sigma_2020)^2)/2 )*dt_9 +sigma_2020*sqrt(dt_9)*epsilon))
+#St_esperada_9 <-mean(St_9$St) + ((mu_2020-((sigma_2020)^2)/2)*dt_9) 
+
+#Precio_Esp_9_meses <- tibble(Estimacion_a="9 meses", PE = St_esperada_9)
 ```
+
+```{r}
+dt_9 <- 3/4
+simula_9_log <- tibble(epsilon=rnorm(n), lnSt=log(So)+ (mu_2020-(((sigma_2020)^2)/2))*dt_9 + sigma_2020*sqrt(dt_9)*epsilon)
+
+simula_9 <- mean(exp(simula_9_log$lnSt))
+Valor_Esperado_9 <- (mu_2020 - ((sigma_2020)^2)/2)*dt_9
+PE_9 <- Valor_Esperado_9+ simula_9
+```
+
+
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+#dt_year <- 1
+#St_year <- tibble(epsilon=rnorm(n),St=So*exp((mu_2020-((sigma_2020)^2)/2 )*dt_year +sigma_2020*sqrt(dt_year)*epsilon))
+#St_esperada_year <-mean(St_year$St) + ((mu_2020-((sigma_2020)^2)/2)*dt_year) 
+
+#Precio_Esp_1_year <- tibble(Estimacion_a="12 meses", PE = St_esperada_year)
+```
+
+```{r}
+dt_year <- 1
+simula_year_log <- tibble(epsilon=rnorm(n), lnSt=log(So)+ (mu_2020-(((sigma_2020)^2)/2))*dt_year + sigma_2020*sqrt(dt_year)*epsilon)
+
+simula_year <- mean(exp(simula_year_log$lnSt))
+Valor_Esperado_year <- (mu_2020 - ((sigma_2020)^2)/2)*dt_year
+PE_year <- Valor_Esperado_year+ simula_year
+```
+
+
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+#rbind(Precio_Esp_3_meses, Precio_Esp_6_meses, Precio_Esp_9_meses, Precio_Esp_1_year)
+```
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+rbind(PE_tri, PE_sem, PE_9, PE_year)
+```
+
+Intervalo de confianza al 95%.
+
+El intervalo de confianza se construye con:
+$$`r mu_2020`\pm`r sigma_2020`*Z$$.
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+mean_log_3 <- Valor_Esperado_tri
+sigma_log_3 <- sqrt(var(simula_tri_log$lnSt))
+P_Sup_log_3 <- log(So)+mean_log_3+Z*sigma_log_3
+P_Inf_log_3 <- log(So)+mean_log_3-Z*sigma_log_3
+P_Sup_3mes <- exp(P_Sup_log_3)
+P_Inf_3mes <- exp(P_Inf_log_3)
+Intervalo_log_3 <- tibble(Intervalo_de_Tiempo="3_meses", P_Sup = P_Sup_3mes, P_Inf = P_Inf_3mes)
+```
+
+
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+mean_log_6 <- Valor_Esperado_sem
+sigma_log_6 <- sqrt(var(simula_sem_log$lnSt))
+P_Sup_log_6 <- log(So)+mean_log_6+Z*sigma_log_6
+P_Inf_log_6 <- log(So)+mean_log_6-Z*sigma_log_6
+P_Sup_6mes <- exp(P_Sup_log_6)
+P_Inf_6mes <- exp(P_Inf_log_6)
+Intervalo_log_6 <- tibble(Intervalo_de_Tiempo="6_meses", P_Sup = P_Sup_6mes, P_Inf = P_Inf_6mes)
+```
+
+
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+mean_log_9 <- Valor_Esperado_tri
+sigma_log_9 <- sqrt(var(simula_9_log$lnSt))
+P_Sup_log_9 <- log(So)+mean_log_9+Z*sigma_log_9
+P_Inf_log_9 <- log(So)+mean_log_9-Z*sigma_log_9
+P_Sup_9mes <- exp(P_Sup_log_9)
+P_Inf_9mes <- exp(P_Inf_log_9)
+Intervalo_log_9 <- tibble(Intervalo_de_Tiempo="9_meses", P_Sup = P_Sup_9mes, P_Inf = P_Inf_9mes)
+```
+
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+mean_log_12 <- Valor_Esperado_year
+sigma_log_12 <- sqrt(var(simula_year_log$lnSt))
+P_Sup_log_12 <- log(So)+mean_log_12+Z*sigma_log_12
+P_Inf_log_12 <- log(So)+mean_log_12-Z*sigma_log_12
+P_Sup_year <- exp(P_Sup_log_12)
+P_Inf_year <- exp(P_Inf_log_12)
+Intervalo_log_12 <- tibble(Intervalo_de_Tiempo="12_meses", P_Sup = P_Sup_year, P_Inf = P_Inf_year)
+```
+
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+rbind(Intervalo_log_3, Intervalo_log_6, Intervalo_log_9, Intervalo_log_12)
+```
+
