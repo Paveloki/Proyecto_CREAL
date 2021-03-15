@@ -1,0 +1,154 @@
+---
+title: "Hechos Estilizados del Precio y del Rendimiento"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    number_sections: yes
+  html_notebook:
+    toc: yes
+    toc_float: yes  
+    number_sections: yes
+---
+
+```{r eval=TRUE,message=FALSE, include=FALSE}
+library(quantmod)
+library(PerformanceAnalytics)
+library(fBasics)
+library(akima)
+library(normtest)
+library(tibble)
+library(crop)
+library(lubridate)
+library(ggplot2)
+```
+
+
+# Observado
+
+La serie de los rendimientos de un activo así como los precios, presentan ciertas peculiaridades, que se repiten sin importar del activo de que se trate. Estas peculiaridades reciben el nombre de **hechos estilizados**
+
+A lo largo de la historia del análisis de estos activos se han encontrado los siguientes hechos estilizados.
+
+## Hecho estilizado 1
+
+El rendimiento de un activo se comporta como una variable aleatoria. 
+
+Sea R(t) el rendimiento de un cierto activo  en el periodo t, existe una infinidad de valores que puede tomar R en el siguiente periodo, unos más probables que otros, pero de ninguna manera podemos tener certeza acerca del valor de ese número. Por tanto;
+
+$$R(t)~N(μ_R,σ_R^2)$$
+
+## Hecho estilizado 2
+
+Los precios de los activos y el valor de los portafolios se comportan como un camino aleatorio. Simulemos un camino aleatorio que comienza en cero y veamos su comportamiento
+
+```{r eval=TRUE,message=FALSE, include=TRUE, warning=FALSE}
+n <- 10000
+set.seed(123)
+datos <- tibble(tiempo=seq(1/n,1, by=1/n), epsilon=rnorm(n), x=cumsum(epsilon))
+ggplot(datos) + theme_bw() +
+  geom_line(aes(tiempo, x), col="blue")+
+  labs(title="Caminata Aleatoria")
+
+```
+
+
+Se puede observar que el comportamiento no tiene una tendencia definida, ya que se experimentan tanto periodos en los que el precio aumenta, como periodos en los que el precio disminuye. Por lo cual, el comportamiento es aleatorio, pues no podemos saber con certeza exactamente cual será la tendencia en el siguiente punto del tiempo. 
+
+El comportamiento errático de una variable aleatoria se describe por medio de un proceso estocástico que se llama caminata aleatoria.  Esto significa que el precio de un activo sigue la siguiente ley del movimiento;
+
+$S_t=S_{t-1}+ε_t$
+
+Donde $E[ε_t ]=0$ y $E[ε_t ε_{t-s}]=Cov[ε_t,ε_{t-s}]=0$. Esto, tiene las siguientes implicaciones;
+
+-No hay correlación entre los retornos de un periodo con el de periodos anteriores. Esto significa que el rendimiento de un día no tiene influencia sobre el rendimiento del día siguiente. 
+	
+-Formación eficiente de los precios. Es decir, el precio actual de un activo refleja toda la información existente para darle valor, además, el ajuste de precios ante posibles cambios se lleva a cabo rápidamente.
+
+
+## Hecho estilizado 3 
+
+La distribución de los rendimientos tiene una forma aproximadamente “acampanada”.
+
+
+
+## Hecho estilizado 4 
+
+Los rendimientos de los activos presentan volatilidad no constante y agrupada
+
+Los rendimientos de los activos presentan una gran variabilidad y no siempre es la misma. En otras palabras, la desviación que presentan los rendimientos respecto a su media es cambiante. Además, la volatilidad tiende a agruparse, pues periodos de gran volatilidad tienden a estar seguidos de periodos de alta volatilidad y viceversa. Por lo tanto, las variaciones grandes en los precios tienen mayor probabilidad de ser seguidas por variaciones grandes en el precio y viceversa.
+
+
+## Hecho estilizado 5
+
+La distribución de los rendimientos presenta leptocurtosis.
+
+La distribución de los rendimientos es más picuda y de colas pesadas. Esto implica que hay mayores probabilidades de obtener valores más cercanos a la media, que en la distribución normal. 
+
+![](curtosis.jpg)
+
+Los hechos estilizados mostrados hasta ahora, nos permiten desarrollar y entender la teoría que hay detrás del comportamiento formal del rendimiento de los activos financieros. 
+
+
+# Comprobación para un activo
+
+En el siguiente apartado tomaremos un activo de prueba y analizaremos el cumplimiento de los hechos estilizados. Supongamos que nuestro activo de prueba sera ___
+
+## Hectos estilizado 1
+
+```{r}
+clave <- "AAPL"
+datos <- new.env()
+
+
+loadSymbols(clave, from = "2016-01-01", to=today(), env=datos)
+precio <-datos[[clave]][,6]
+names(precio) <- clave
+
+```
+
+```{r}
+rendimiento <- na.omit(diff(log(precio)))
+chartSeries(rendimiento, name = paste("Rendimiento",clave), theme = "white", up.col="black", dn.col = "red")
+```
+
+
+
+
+## Hecho estilizado 2
+```{r}
+chartSeries(precio,name = paste("Precio de",clave), theme = "white", up.col="black", dn.col = "red")
+```
+
+
+
+## Hecho estilizado 3
+
+Graficar el histogranma
+```{r}
+ggplot(rendimiento, aes(rendimiento))+
+  geom_histogram(aes(y=..density..), fill="white", color="brown")+
+  geom_density(fill="red", alpha=.15)+
+  geom_vline(aes(xintercept=mean(rendimiento)),color="blue", size = 1,linetype="dashed")
+```
+
+
+
+## Hecho estilizado 4
+
+```{r}
+chartSeries(to.monthly(precio),name = paste("Precio de",clave), theme = "white", up.col="black", dn.col = "red")
+addBBands()
+```
+
+
+
+
+
+## Hecho estilizado 5
+```{r}
+ggplot(rendimiento, aes(rendimiento))+
+  geom_density(aes(y=..density..),fill="red", alpha=.15)+
+  stat_function(fun=dnorm, args= list(mean=mean(rendimiento$AAPL),sd=sd(rendimiento$AAPL)),color="red",size=1.5)
+```
+
