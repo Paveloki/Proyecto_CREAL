@@ -627,6 +627,23 @@ Est_2021 <- tibble(Periodo="2021", RendD = paste(round(Rdp_2021*100,5),"%"), Vol
 ```{r eval=TRUE, message=FALSE, include=TRUE, warning=FALSE, echo=FALSE}
 rbind(Est, Est_2016, Est_2017, Est_2018, Est_2019, Est_2020, Est_2021)
 ```
+**Conclusiones : ** 
+
+**- Rendimientos Diarios : **
+Los rendimientos diarios fueron perdidas en la empresa ya que son negativos, esto nos quiere decir que el precio de nuestro activo se ha venido devaluando con los dias que pasan esto en la mayoria de nuestros resultados año con año incluyendo nuestra valuacion para 2016 hasta al dia de Hoy la cual fue -0.09896 %, solo cabe señalar que el unico año que nuestro activo tuvo rendimientos diarios positivos fue en el año 2019 con un valor de 0.12624 %, por lo tanto si estamos pensando invertir en este activo podemos ver que no tiene una valoracion positiva ya que tiene rendimientos negativos en todas las valuaciones con excepcion de solo 1.
+
+**- Volatilidades Diarias : **
+En las volatilidades diarias podemos percatarnos que estan muy cercanas a 2 % ya que 1.97705 % , 1.94371 %, 1.9924 %  , 	2.10163 % fueron los resultados para los años 2018, 2019, 2021 y 2016 al dia de Hoy la cual es la mayoria de nuestros años ya que en 2016 y 2017 fueron mayor a 1.5 % las volatilidades por lo tanto podemos decir que nuestras volatilidades diarias del activo oscilan en el 2 % solo con excepcion del año 2020 el cual llego hasta 3.07193 % reflejo de la pandemia la cual tuvo severas repercuciones en todas las circunstacias de la vida humana en la tierra ciertamente tambien en la economia lo cual se ve reflejado en la volatilidad de nuestro activo.
+
+**- Rendimiento Anual: **
+Nuestro activo tiene rendimientos negativos en todos nuestros años con excepcion de 2019, esto lo esperabamos un poco ya que en las graficas y noticias que conociamos de la empresa veiamos una caida consecuente tras el paso de los años, las peores caidas de nuestro activo han sido en los ultimos años con -63.68409 % en el año pasado 2020 y 	-62.44087 % de este año por lo tanto no es un activo donde sea buena idea invertir.
+
+-   Algo interesante que nos gustaria resaltar es en 2018 y 2019 con volatilidades de 30 % y 31 % aproximadamente respectivamente cada año, al paso de un año dio un rendimiento demasiado similar solo con diferente signo, en este caso con un resultado positivo para el 2019 ya que como vimos en la entrega pasada en las noticias de la empresa pudimos constatarnos que recibieron grandes pagos por creditos a principios de 2019 los cuales fueron emitidos en el año de 2018.
+
+**- Volatilidades Anuales : **
+En nuestros primeros calculos podernos darnos cuenta al leer los resultados que nuestro activo es muy volatil , sus volatilidades rondan en 24.24864 % la menor volatilidad en el año de 2016 hasta un valor considerablemente alto de 48.7654 % para el año de 2020, en nuestra estimacion del año 2016 hasta Hoy podemos ver que el activo viene manejando una volatilidad de 33.36236 %
+en el transcurso de estos año lo que quiere decir que es un activo voltil si se considera invertir en el.
+
 
 ## Prueba de normalidad sobre el rendimiento (JARQUE-BERA).
 
@@ -634,11 +651,23 @@ Para los mismos periodos que en el punto anterior, efectuar una prueba de normal
 
 Se hará una prueba formal de normalidad
 
-Jarque Bera (Aquí junto con mi equipo voy a investigar/recordad que es una prueba de normalidad y voy a poner su forma matemática)
+Jarque Bera: 
 
-Relaciona el sesgo y la curtosis
+La cual es una prueba de bondad de ajuste para comprobar si una muestra de datos tiene la asimetría y la curtosis de una distribución normal.
+
+El estadístico de Jarque-Bera se distribuye asintóticamente como una distribución chi cuadrado con dos grados de libertad y puede usarse para probar la hipótesis nula de que los datos pertenecen a una distribución normal. La hipótesis nula es una hipótesis conjunta de que la asimetría y el exceso de curtosis son nulos (asimetría = 0 y curtosis = 3). La prueba se puede utilizar en Modelos de Regresión para probar la hipótesis de Normalidad de los residuos. Para ello se utilizan los residuos estimados obtenidos por mínimos cuadrados. Los puntos críticos para muestras pequeñas se pueden calcular vía Monte Carlo.
+
+Su forma Matematica,
+
+La prueba estadística JB donde n es el número de observaciones (o grados de libertad en general) se define matematicamente como:
+
+$${\displaystyle {\mathit {JB}}={\frac {n}{6}}\left(S^{2}+{\frac {1}{4}}(K-3)^{2}\right)}$$
+Donde los valores de S (asimetría de la muestra) :
 
 
+$${\displaystyle S={\frac {{\hat {\mu }}_{3}}{{\hat {\sigma }}^{3}}}={\frac {{\frac {1}{n}}\sum _{i=1}^{n}(x_{i}-{\bar {x}})^{3}}{\left({\frac {1}{n}}\sum _{i=1}^{n}(x_{i}-{\bar {x}})^{2}\right)^{3/2}}},}$$
+Y K (curtosis de la muestra)estan definido por los calculos:
+$${\displaystyle K={\frac {{\hat {\mu }}_{4}}{{\hat {\sigma }}^{4}}}={\frac {{\frac {1}{n}}\sum _{i=1}^{n}(x_{i}-{\bar {x}})^{4}}{\left({\frac {1}{n}}\sum _{i=1}^{n}(x_{i}-{\bar {x}})^{2}\right)^{2}}},}{\displaystyle K={\frac {{\hat {\mu }}_{4}}{{\hat {\sigma }}^{4}}}={\frac {{\frac {1}{n}}\sum _{i=1}^{n}(x_{i}-{\bar {x}})^{4}}{\left({\frac {1}{n}}\sum _{i=1}^{n}(x_{i}-{\bar {x}})^{2}\right)^{2}}},}$$
 Ho: Existe normalidad en la variable
 Ha: No normalidad en la variable
 
@@ -703,8 +732,40 @@ JB_est_2021 <- tibble(Periodo="2021", JB_precio = JBP_2021[["statistic"]], JB_re
 ```{r eval=TRUE, message=FALSE, include=TRUE, warning=FALSE, echo=FALSE }
 rbind(JB_est, JB_est_2016, JB_est_2017, JB_est_2018, JB_est_2019, JB_est_2020, JB_est_2021)
 ```
+**Conclusiones : ** 
+
+Realizando la prueba de JARQUE-BERA podemos ver en nuestros resultados considerando que la regla es que si el estadístico es mayor a 9.2130, se rechaza Ho la cual dice respectivamente Ho: Existe normalidad en la variable.
+
+- Precio :
+Con estos resultados podemos ver que en todos los años no hay normalidad en la variable, solo si exceptuamos el año actual 2021 donde fue el unico valor donde la prueba nos muestra un valor de 3.294656 que nos dice :
+Ho: Existe normalidad en la variable la cual nos dice que la variable contará con ligeras diferencias en este año para su precio.
+
+- Rendimiento :
+Los rendimientos de este activo por medio de la prueba JARQUE-BERA nos indica que durante los años 2016, 2019 y 2021 los rendimientos contarán con ligeras diferencias durante estos años para su rendimiento pues los resultados fueron menores a  9.2130 ya que fueron 5.810433, 3.291633 y 7.419509 respectivamente pues aceptamos Ho la cual nos dice : Existe normalidad en la variable.
+
+La distribución de los puntajes es asimétrica, por lo que la curva o distribución de los rendimientos, no es normal para todos los demas resultados 2016 hasta hoy, 2017, 2018 y 2020 por lo tanto no tenemos normalidad en nuestros rendimientos en estos años. 
+
+- Log Precio :
+Cuando nuestro precio es calculado por logaritmos solo el año actual no paso la prueba pues en 2021 obtuvimos un valor de 3.16604 lo cual nos muestra que el precio en todas las pruebas y en los rendimientos la variable muestra normatividad pues para este año aceptamos Ho en todas las pruebas.
+
+Nuestros resultados no presentan normalidad para todas las pruebas excepto la anterior, pues el precio no es normal en los años 2016 hasta hoy, 2017, 2018, 2019 y 2020.
+
+Algo cuirioso para 2010 fue el mas cercano para no pasar la prueba con un valor de 10.68336	al rededor de 2 puntos de arriba y el año donde obtuvimos el valor mas alto fue la prueba de 2016 hasta la fecha de hoy con 120.42014.
+
+
+
 
 ## Prueba de rendimiento (T-TEST)
+
+La prueba t es cualquier prueba de hipótesis estadística en la que el estadístico de la prueba sigue una distribución t de Student bajo la hipótesis nula. 
+La distribución t es un conjunto de curvas estructurada por un grupo de datos de unas muestras en particular.
+
+La primera presunción es formular la hipótesis nula y la hipótesis alterna, que establece que no hay diferencias en la media de las dos muestras independientes y que de existir esta diferencia, sólo se debe al azar.Si la t calculada que se origina de las dos muestras es desmesurada (valor de p que se encuentra en las tablas respectivas), entonces se rechazaría la hipótesis nula (error tipo I). Es importante mencionar que este valor depende del valor de significancia establecido con anterioridad de lo que se quiere probar.
+
+
+La distribución t de Student es la distribución de probabilidad del cociente:
+
+$${\displaystyle T={\frac {x_1 - x_2}{\sqrt {S^2(\frac {1}{n_1 + n_2})}}}}$$
 
 Ho: Media = 0
 Ha: Media diferente de cero
@@ -726,13 +787,32 @@ prueba2020 <- t.test(as.numeric(rendimiento[year(rendimiento)==2020]))
 prueba_2020 <- abs(prueba2020[["statistic"]])
 prueba2021 <- t.test(as.numeric(rendimiento[year(rendimiento)==2021]))
 prueba_2021 <- abs(prueba2021[["statistic"]])
+t_1 <- tibble(Prueba="2016-hoy", t = prueba_global)
+t_2 <- tibble(Prueba="2016", t = prueba_2016)
+t_3 <- tibble(Prueba="2017", t = prueba_2017)
+t_4 <- tibble(Prueba="2018", t = prueba_2018)
+t_5 <- tibble(Prueba="2019", t = prueba_2019)
+t_6 <- tibble(Prueba="2020", t = prueba_2020)
+t_7 <- tibble(Prueba="2021", t = prueba_2021)
 ```
 
 ```{r Prueba de rendimiento estádisticamente igual a 0, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
-rbind(prueba_global, prueba_2016, prueba_2017, prueba_2018, prueba_2019, prueba_2020, prueba_2021)
+rbind(t_1,t_2,t_3,t_4,t_5,t_6,t_7)
 ```
 
+**Conclusiones : ** 
+De primero en nuestra prueba podemos ver que en todas las pruebas se acepta la Ho ya que ningun resultado es mayor a 2.3295 la cual nos dice que la media es = 0.
+
+Para nuestra prueba global ronda casi en 2 nuestro resultado fue 1.7009381 pero nada cercano a un 2.3295 mucho menos para pasarlo como para rechazar la Ho.
+
+Al cabo de 1 año pudo darnos como resutado el mayor y el menor numero de nuestros valores, 
+El mayor resultado de nuestra prueba nos dio en el año 2016 con valor de 1.8222902
+Es algo llamativo que al siguiente año en 2017 fue el menor resultado con un 0.3787764 
+
+
 ## Estimación del comportamiento del precio para el año 2020.
+
+### **ecuación ds: **
 
 Usar los parámetros 𝜇, 𝜎 (diarios) de la distribución del periodo 2020 y construir la ecuación 𝑑𝑠 =
 𝑠𝜇𝑑𝑡 + 𝑠𝜎𝑑𝑤 que representa una estimación del comportamiento del precio. Usar esta ecuación
@@ -779,6 +859,8 @@ Precio_Esp_40 <- tibble(Estimacion_a="40", PE = PE_40)
 rbind(Precio_Esp_10, Precio_Esp_20, Precio_Esp_40)
 ```
 
+**Conclusiones : ** 
+Los precios esperados del activo no estan nada alejados del su precio actual, solo que a diferencia de lo que para la inversion de este activo se pensaria como conveniente el activo va en caida ya que el precio al dia de hoy es de $ 11 pesos, estos precio que se esperan a 10, 20 y 40 dias solo preeven perdida para el activo, no es buena opcion de inversion que aunque solo la perdida esperada es de 1 peso a largo plazo la esperanza del activo es negativa por lo tanto lo etiquetamos como una mala inversion pues a 40 dias pudiera caer hasta 9.866804 el precio del activo.
 
 Intervalo de confianza al 95%.
 
@@ -814,6 +896,20 @@ Intervalo_40 <- tibble(Intervalo_de_Tiempo="40", P_Sup = P_Sup_40, P_Inf = P_Inf
 rbind(Intervalo_10, Intervalo_20, Intervalo_40)
 ```
 
+**Conclusiones : ** 
+
+Con un 95 % de confianza podemos concluir:
+
+- Dentro de 10 dias nustros maximo de precio pudiera ser 12.81840	pesos y nuestro minimo de 8.614332 pesos por accion de nuestro activo actualmente el precio es de 11 pesos por lo tanto, esta a 1.81840 de llegar al maximo de precio y 2.385668 del minimo por lo tanto se muestra un poco optimista ya que esta mas cerca de nuestro maximo de precio para 10 dias.
+
+- En un periodo de 20 dias comparada con el precio al dia de hoy, la accion se espera que crezca mas y que caiga mas tambien de lo de 10 dias esto claro por que es mas tiempo aqui podemos ver que la diferencia es de 1 peso aproximadamente comparado con el intervalo anterior para ambas mediciones tanto limite superior he inferior, por lo tanto la caida pudiera ser maxima de casi 2.5 pesos, como maximo el precio incrementaría hasta 2.4 pesos.
+
+
+- Podemos concluir que el precio del activo no caera abajo de 5.658870 pesos por accion con un 95% de confianza y no valdrá mas de 14.07329 pesos en un periodo de 40 dias, lo procupante de esto es que en un en todos los periodos se espera una caida limite mayor de que los maximos en los precios por lo tanto podemos ver que este activo peligra mas de lo que promete en beneficio.
+
+
+### **logarítmos: **
+
 $$ln(S_t) = ln(S_o) + (`r mu_2020` - (`r sigma_2020`^2)/2) dt + `r sigma_2020`dW$$
 
 Dentro 3, 6, 9 y 12 meses
@@ -827,6 +923,7 @@ simula_tri_log <- tibble(epsilon=rnorm(n), lnSt=log(So)+ (mu_2020-(((sigma_2020)
 simula_tri <- mean(exp(simula_tri_log$lnSt))
 Valor_Esperado_tri <- (mu_2020 - ((sigma_2020)^2)/2)*dt_tri
 PE_tri <- Valor_Esperado_tri+ simula_tri
+PE_1 <- tibble(Estimacion_a="3 meses", PE = PE_tri)
 
 #St_tri <- tibble(epsilon=rnorm(n),St=So*exp((mu_2020-((sigma_2020)^2)/2 )*dt_tri +sigma_2020*sqrt(dt_tri)*epsilon))
 #St_esperada_tri <-mean(St_tri$St) + ((mu_2020-((sigma_2020)^2)/2)*dt_tri) 
@@ -844,13 +941,14 @@ PE_tri <- Valor_Esperado_tri+ simula_tri
 #Precio_Esp_6_meses <- tibble(Estimacion_a="6 meses", PE = St_esperada_seme)
 ```
 
-```{r}
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 dt_sem <- 1/2
 simula_sem_log <- tibble(epsilon=rnorm(n), lnSt=log(So)+ (mu_2020-(((sigma_2020)^2)/2))*dt_sem + sigma_2020*sqrt(dt_sem)*epsilon)
 
 simula_sem <- mean(exp(simula_sem_log$lnSt))
 Valor_Esperado_sem <- (mu_2020 - ((sigma_2020)^2)/2)*dt_sem
 PE_sem <- Valor_Esperado_sem+ simula_sem
+PE_2 <- tibble(Estimacion_a="6 meses", PE = PE_sem)
 ```
 
 
@@ -862,13 +960,14 @@ PE_sem <- Valor_Esperado_sem+ simula_sem
 #Precio_Esp_9_meses <- tibble(Estimacion_a="9 meses", PE = St_esperada_9)
 ```
 
-```{r}
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 dt_9 <- 3/4
 simula_9_log <- tibble(epsilon=rnorm(n), lnSt=log(So)+ (mu_2020-(((sigma_2020)^2)/2))*dt_9 + sigma_2020*sqrt(dt_9)*epsilon)
 
 simula_9 <- mean(exp(simula_9_log$lnSt))
 Valor_Esperado_9 <- (mu_2020 - ((sigma_2020)^2)/2)*dt_9
 PE_9 <- Valor_Esperado_9+ simula_9
+PE_3 <- tibble(Estimacion_a="9 meses", PE = PE_9)
 ```
 
 
@@ -881,12 +980,13 @@ PE_9 <- Valor_Esperado_9+ simula_9
 #Precio_Esp_1_year <- tibble(Estimacion_a="12 meses", PE = St_esperada_year)
 ```
 
-```{r}
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 dt_year <- 1
 simula_year_log <- tibble(epsilon=rnorm(n), lnSt=log(So)+ (mu_2020-(((sigma_2020)^2)/2))*dt_year + sigma_2020*sqrt(dt_year)*epsilon)
 simula_year <- mean(exp(simula_year_log$lnSt))
 Valor_Esperado_year <- (mu_2020 - ((sigma_2020)^2)/2)*dt_year
 PE_year <- Valor_Esperado_year+ simula_year
+PE_4 <- tibble(Estimacion_a="1 año", PE = PE_year)
 ```
 
 
@@ -896,13 +996,14 @@ PE_year <- Valor_Esperado_year+ simula_year
 ```
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
-rbind(PE_tri, PE_sem, PE_9, PE_year)
+rbind(PE_1, PE_2, PE_3, PE_4)
 ```
 
-Intervalo de confianza al 95%.
+**Conclusiones : **  
+Nuestros precios esperados fueron resultados muy parecidos para los preiodos trimestrales, semestrales, tres trimestres y anuales en los cuales esperamos un precio de $10.9 por accion de este activo aproximadamente con algunas variaciones en los centavos a partir de las centenas de nuestros resultados de precio esperado.
 
-El intervalo de confianza se construye con:
-$$`r mu_2020`\pm`r sigma_2020`*Z$$.
+
+Intervalo de confianza al 95%.
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 mean_log_3 <- Valor_Esperado_tri
@@ -953,4 +1054,18 @@ Intervalo_log_12 <- tibble(Intervalo_de_Tiempo="12_meses", P_Sup = P_Sup_year, P
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
 rbind(Intervalo_log_3, Intervalo_log_6, Intervalo_log_9, Intervalo_log_12)
 ```
+**Conclusiones : ** 
+
+Con nuestro intervalo el cual tiene solo un 5 % de error, podemos ver que nuestros limites inferiores representan una gran caída, ya que llega hasta los 7.92 pesos en un periodo de 3 meses, hasta 6 pesos en los periodos de 6 y 9 meses, llegando hasta un valor de $5.66 pesos al tiempo de 12 meses como maximo de perdida esto en los peores casos para el activo nos indica nuestro intervalo.
+
+En el mejor de los casos dentro de 3 meses el precio puede subir $ 4 pesos ya que la dia de hoy a rondado en once pesos con variaciones en los centavos este es el panorama menos optimista pero se entiende debido al timpo del periodo, en el mejor de los casos es a largo plazo debido a lo antes mencionada aqui se muestra un maximo despunte de 10 pesos esto de acuerdo con nuestro intervalo, en los plazos de 6 y 9 meses lo maximo que puede tener de ganancia el activo son de 6 y 8 pesos respectivamente, nuestro intervalo es confiable debido a que tiene un gran porcentaje de confianza consideramos que el precio esta mas cerca de los limites inferiores por como se ha venido comportando nuestro activo en los ultimos años,meses y dias presentando grandes caidas sin ilusión de subir aparentemente, revisado con las graficas e indicadores como Bollinger Bands, MACD y Accumulation/Distribution tambien coinciden con nuestras predicciones de precio con el intervalo de 95 % de confianza.
+
+
+## **Conclusiones Generales: **
+
+Creemos que el activo se encuentra actualmente en una situación muy delicada, ya que, la gran volatilidad que maneja no se ve reflejada en los rendimientos que han venido a la baja, sin luces de que vaya a tener una tendencia hacia la alta. En relación a la teoría de la normalidad tenemos que solamente en el año 2021 se presenta normalidad en el precio, esto no es un resultado concluyente ya que sabemos que los precios no son normales, solo el rendimeinto de los precios lo es, sabemos que los precios son log normales. Lo curiosos es que solo el año 2016, 2019 y lo que va del año 2021, presentan rendimientos normales, solo éste último año presenta precios log normales. Solo 2021 presenta precio, rendimientos y el logaritmo del precio normales, todos los demás años presentan anoramlidad en al menos algun valor en el estadístico, lo cual hablando del precio es algo razonable, mas no, hablando de los rendimientos, lo cual si nos soreprendió, nos habla de que los rendimientos de Crédito Real no se encuentran dentro del comportamiento de una variable normal con media 0 y varianza 1, nosotros podemos deducir que se debe a que el precio del activo ha venido en picada con el pasar de los años. 
+
+
+
+
 
