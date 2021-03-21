@@ -92,6 +92,7 @@ library(crop)
 library(lubridate)
 library(ggplot2)
 library(moments)
+library(tidyverse)
 ```
 
 
@@ -1064,6 +1065,67 @@ En el mejor de los casos dentro de 3 meses el precio puede subir $ 4 pesos ya qu
 ## **Conclusiones Generales: **
 
 Creemos que el activo se encuentra actualmente en una situación muy delicada, ya que, la gran volatilidad que maneja no se ve reflejada en los rendimientos que han venido a la baja, sin luces de que vaya a tener una tendencia hacia la alta. En relación a la teoría de la normalidad tenemos que solamente en el año 2021 se presenta normalidad en el precio, esto no es un resultado concluyente ya que sabemos que los precios no son normales, solo el rendimeinto de los precios lo es, sabemos que los precios son log normales. Lo curiosos es que solo el año 2016, 2019 y lo que va del año 2021, presentan rendimientos normales, solo éste último año presenta precios log normales. Solo 2021 presenta precio, rendimientos y el logaritmo del precio normales, todos los demás años presentan anoramlidad en al menos algun valor en el estadístico, lo cual hablando del precio es algo razonable, mas no, hablando de los rendimientos, lo cual si nos soreprendió, nos habla de que los rendimientos de Crédito Real no se encuentran dentro del comportamiento de una variable normal con media 0 y varianza 1, nosotros podemos deducir que se debe a que el precio del activo ha venido en picada con el pasar de los años. 
+
+
+
+
+
+# **Parte 4: Análisis con el mercado y con otros activos**
+
+## *Calcular la correlación que hay entre el activo CREAL con el Mercado (INPC) y otros activos. De manera que se identifiquen los cincos activos mas correlacionados con el activo de estudio. Para este análisis utilizar los precios históricos desde el 2016 hasta la fecha de corte.*
+
+Para el mercado tenemos
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+loadSymbols("^MXX", from = "2016-01-01", to=today())
+rend_mercado <- diff(log(na.omit(MXX$MXX.Adjusted)))
+datos_corr <- merge.xts(rend_mercado,rendimiento)
+names(datos_corr) <- c("IPC",clave)
+```
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+chart.Correlation(na.omit(datos_corr))
+cor(na.omit(datos_corr))
+```
+
+3 GRADOS DE SIGNIFICANCIA
+Indican la validez entre la relación que hay entre ambas variables, es estadisticamente significativa e importante al 99% de confianza.
+
+Correlación de mi activo con el resto de activos que hay en el mercado.
+
+```{r}
+library(readr)
+Emisoras <- read.csv("Emisoras_Completo2.csv")
+```
+
+
+```{r}
+datos2 <- new.env()
+MAT_COR <- as.data.frame(matrix(0,119,2))
+names(MAT_COR) <- c("Emisora", "Correlation")
+for(i in 1:119){
+  clave2 <- Emisoras[i,1]
+  print(clave2)
+  getSymbols(clave2,from="2016-01-01", to=today(), warnings = FALSE, env=datos2)
+  precio2 <-datos2[[clave2]][,6]
+  names(precio2) <- clave2
+  rend_activo2 <- na.omit(diff(log(precio2)))
+  datos_corr2 <- merge.xts(rendimiento,rend_activo2)
+  #chart.Correlation(na.omit(datos_corr2))
+  m <- cor(na.omit(datos_corr2))
+  ro <- m[2,1]
+  MAT_COR[i,2] <- ro
+  MAT_COR[i,1] <- clave2
+}
+```
+
+```{r}
+max_corr <-arrange(MAT_COR, -Correlation )[2:6,]
+```
+
+
+## *Incluir la grafica con los rendimientos históricos de los seis activos, así como del mercado.*
+
 
 
 
