@@ -1,0 +1,85 @@
+---
+title: "Correlacion"
+author: "Jose Pablo Vazquez"
+output: html_document
+date: "3/1/2021"
+---
+
+Correlación de un activo con el mercado. En el caso de México es el IPC, cuya clave de cotización es: ^MXX.
+
+```{r, include=FALSE}
+library(quantmod)
+library(PerformanceAnalytics)
+library(lubridate)
+```
+
+Para mi activo de prueba, esta es la información.
+```{r, include=FALSE}
+clave <- "CREAL.MX"
+datos <- new.env()
+loadSymbols(clave, from = "2016-01-01", to=today(), env=datos)
+precio <-datos[[clave]][,6]
+names(precio) <- clave
+rend_activo <- na.omit(diff(log(precio)))
+```
+
+Para el mercado tenemos que
+
+```{r}
+loadSymbols("^MXX", from = "2016-01-01", to=today())
+rend_mercado <- diff(log(na.omit(MXX$MXX.Adjusted)))
+datos_corr <- merge.xts(rend_mercado,rend_activo)
+names(datos_corr) <- c("IPC",clave)
+```
+
+```{r}
+chart.Correlation(na.omit(datos_corr))
+cor(na.omit(datos_corr))
+```
+
+
+correlación de mi activo con el resto de activos que hay en el mercado.
+```{r}
+library(readr)
+Emisoras <- read.csv("Emisoras_Completo2.csv")
+```
+
+
+
+```{r}
+datos2 <- new.env()
+MAT_COR <- as.data.frame(matrix(0,119,2))
+names(MAT_COR) <- c("Emisora", "Correlation")
+for(i in 1:119){
+  clave2 <- Emisoras[i,1]
+  print(clave2)
+  getSymbols(clave2,from="2016-01-01", to=today(), warnings = FALSE, env=datos2)
+  precio2 <-datos2[[clave2]][,6]
+  names(precio2) <- clave2
+  rend_activo2 <- na.omit(diff(log(precio2)))
+  datos_corr2 <- merge.xts(rend_activo,rend_activo2)
+  #chart.Correlation(na.omit(datos_corr2))
+  m <- cor(na.omit(datos_corr2))
+  ro <- m[2,1]
+  MAT_COR[i,2] <- ro
+  MAT_COR[i,1] <- clave2
+}
+  
+```
+
+```{r}
+library(tidyverse)
+max_corr <-arrange(MAT_COR, -Correlation )[2:6,] #pones un - para que te los ordene de mayor a menos
+min_corr <- arrange(MAT_COR, Correlation)[1:5,]
+```
+
+
+
+
+
+
+
+
+
+
+
