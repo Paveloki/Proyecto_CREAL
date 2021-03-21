@@ -1093,13 +1093,13 @@ Indican la validez entre la relación que hay entre ambas variables, es estadist
 
 Correlación de mi activo con el resto de activos que hay en el mercado.
 
-```{r}
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 library(readr)
 Emisoras <- read.csv("Emisoras_Completo2.csv")
 ```
 
 
-```{r}
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 datos2 <- new.env()
 MAT_COR <- as.data.frame(matrix(0,119,2))
 names(MAT_COR) <- c("Emisora", "Correlation")
@@ -1119,7 +1119,7 @@ for(i in 1:119){
 }
 ```
 
-```{r}
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
 max_corr <-arrange(MAT_COR, -Correlation )[2:6,]
 ```
 
@@ -1127,7 +1127,57 @@ max_corr <-arrange(MAT_COR, -Correlation )[2:6,]
 ## *Incluir la grafica con los rendimientos históricos de los seis activos, así como del mercado.*
 
 
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+loadSymbols("GFNORTEO.MX", from = "2016-01-01", to=today())
+rend_GF <- diff(log(na.omit(GFNORTEO.MX$GFNORTEO.MX.Adjusted)))
+datos_corr <- merge.xts(rend_GF,rendimiento)
+names(datos_corr) <- c("GFNORTEO.MX",clave)
+chart.Correlation(na.omit(datos_corr))
+GFNORTEO <- cor(na.omit(datos_corr))
+GFNORTEO
+```
+
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+loadSymbols("AMX", from = "2016-01-01", to=today())
+rend_AM <- diff(log(na.omit(AMX$AMX.Adjusted)))
+datos_corr <- merge.xts(rend_AM,rendimiento)
+names(datos_corr) <- c("AMX",clave)
+chart.Correlation(na.omit(datos_corr))
+cor(na.omit(datos_corr))
+```
 
 
 
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+loadSymbols("BBAJIOO.MX", from = "2016-01-01", to=today())
+rend_BBAJIOO <- diff(log(na.omit(BBAJIOO.MX$BBAJIOO.MX.Adjusted)))
+datos_corr <- merge.xts(rend_BBAJIOO,rendimiento)
+names(datos_corr) <- c("AMX",clave)
+chart.Correlation(na.omit(datos_corr))
+cor(na.omit(datos_corr))
+```
+
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+loadSymbols("CEMEXCPO.MX", from = "2016-01-01", to=today())
+rend_CEMEXCPO <- diff(log(na.omit(CEMEXCPO.MX$CEMEXCPO.MX.Adjusted)))
+datos_corr <- merge.xts(rend_CEMEXCPO,rendimiento)
+names(datos_corr) <- c("CEMEXCPO.MX",clave)
+chart.Correlation(na.omit(datos_corr))
+cor(na.omit(datos_corr))
+```
+
+
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+loadSymbols("GICSAB.MX", from = "2016-01-01", to=today())
+rend_GICSAB <- diff(log(na.omit(GICSAB.MX$GICSAB.MX.Adjusted)))
+datos_corr <- merge.xts(rend_GICSAB,rendimiento)
+names(datos_corr) <- c("GICSAB.MX",clave)
+chart.Correlation(na.omit(datos_corr))
+cor(na.omit(datos_corr))
+```
+```{r}
+
+```
 
