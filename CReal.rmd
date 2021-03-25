@@ -93,6 +93,7 @@ library(lubridate)
 library(ggplot2)
 library(moments)
 library(tidyverse)
+library(kableExtra)
 ```
 
 
@@ -1120,64 +1121,40 @@ for(i in 1:119){
 ```
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
-max_corr <-arrange(MAT_COR, -Correlation )[2:6,]
+max_corr <-arrange(MAT_COR, -Correlation)[2:6,]
+max_corr
 ```
 
 
 ## *Incluir la grafica con los rendimientos históricos de los seis activos, así como del mercado.*
 
 
-```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
-loadSymbols("GFNORTEO.MX", from = "2016-01-01", to=today())
-rend_GF <- diff(log(na.omit(GFNORTEO.MX$GFNORTEO.MX.Adjusted)))
-datos_corr <- merge.xts(rend_GF,rendimiento)
-names(datos_corr) <- c("GFNORTEO.MX",clave)
-chart.Correlation(na.omit(datos_corr))
-GFNORTEO <- cor(na.omit(datos_corr))
-GFNORTEO
-```
-
-
-```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
-loadSymbols("AMX", from = "2016-01-01", to=today())
-rend_AM <- diff(log(na.omit(AMX$AMX.Adjusted)))
-datos_corr <- merge.xts(rend_AM,rendimiento)
-names(datos_corr) <- c("AMX",clave)
-chart.Correlation(na.omit(datos_corr))
-cor(na.omit(datos_corr))
-```
-
-
-
-```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
-loadSymbols("BBAJIOO.MX", from = "2016-01-01", to=today())
-rend_BBAJIOO <- diff(log(na.omit(BBAJIOO.MX$BBAJIOO.MX.Adjusted)))
-datos_corr <- merge.xts(rend_BBAJIOO,rendimiento)
-names(datos_corr) <- c("AMX",clave)
-chart.Correlation(na.omit(datos_corr))
-cor(na.omit(datos_corr))
-```
-
-
-```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
-loadSymbols("CEMEXCPO.MX", from = "2016-01-01", to=today())
-rend_CEMEXCPO <- diff(log(na.omit(CEMEXCPO.MX$CEMEXCPO.MX.Adjusted)))
-datos_corr <- merge.xts(rend_CEMEXCPO,rendimiento)
-names(datos_corr) <- c("CEMEXCPO.MX",clave)
-chart.Correlation(na.omit(datos_corr))
-cor(na.omit(datos_corr))
-```
-
-
-```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
-loadSymbols("GICSAB.MX", from = "2016-01-01", to=today())
-rend_GICSAB <- diff(log(na.omit(GICSAB.MX$GICSAB.MX.Adjusted)))
-datos_corr <- merge.xts(rend_GICSAB,rendimiento)
-names(datos_corr) <- c("GICSAB.MX",clave)
-chart.Correlation(na.omit(datos_corr))
-cor(na.omit(datos_corr))
-```
 ```{r}
-
+tickers<-c("AMX","GFNORTEO.MX","BBAJIOO.MX","CEMEXCPO.MX","GICSAB.MX")
+loadSymbols(tickers,from="2016-01-01", to=today(), warnings = "FALSE", env = datos2)
 ```
+
+```{r}
+price <- datos2[[tickers[1]]][,6]
+rend_price <- na.omit(diff(log(price))) 
+price1 <- datos2[[tickers[2]]][,6]
+rend_price1 <- na.omit(diff(log(price1)))
+price2 <- datos2[[tickers[3]]][,6]
+rend_price2 <- na.omit(diff(log(price2)))
+price3 <- datos2[[tickers[4]]][,6]
+rend_price3 <- na.omit(diff(log(price3)))
+price4 <- datos2[[tickers[5]]][,6]
+rend_price4 <- na.omit(diff(log(price4)))
+datos_price <- na.omit(merge.xts(rendimiento, rend_price, rend_price1, rend_price2, rend_price3, rend_price4, rend_mercado))
+names(datos_price) <- c("Rendimiento de CREAL", "Rendimiento de AMX", "Rendimiento de GFNORTEO", "Rendimiento de BBAJIOO", "Rendimiento de CEMEXCPO", "Rendimiento de GICSAB", "Rendimiento del mercado")
+plot(datos_price,legend.loc="topleft",lwd = 0.3, col= c("black","blue", "red","pink","orange","purple","green"),
+     main = "Rendimientos de los activos y el mercado", col.main = "orange",bty = 'n',
+     bg = "grey")
+```
+
+
+
+
+
+
 
