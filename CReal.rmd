@@ -1073,9 +1073,9 @@ Creemos que el activo se encuentra actualmente en una situación muy delicada, y
 
 # **Parte 4: Análisis con el mercado y con otros activos**
 
-## *Calcular la correlación que hay entre el activo CREAL con el Mercado (INPC) y otros activos. De manera que se identifiquen los cincos activos mas correlacionados con el activo de estudio. Para este análisis utilizar los precios históricos desde el 2016 hasta la fecha de corte.*
+**Calcular la correlación que hay entre el activo CREAL con el Mercado (INPC) y otros activos. De manera que se identifiquen los cincos activos mas correlacionados con el activo de estudio. Para este análisis utilizar los precios históricos desde el 2016 hasta la fecha de corte.**
 
-Para el mercado tenemos
+Para el mercado tenemos:
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 loadSymbols("^MXX", from = "2016-01-01", to=today())
@@ -1122,19 +1122,21 @@ for(i in 1:119){
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
 max_corr <-arrange(MAT_COR, -Correlation)[2:6,]
-max_corr
+max_corr <- tibble(Emisoras = max_corr[,1], Correlación = max_corr[,2])
+rbind(max_corr)
 ```
 
 
 ## *Incluir la grafica con los rendimientos históricos de los seis activos, así como del mercado.*
 
+**Ahora pasamos a utilizar los rendimientos de los activos mas correlacionados sobre nuestro activo CREAL para poder graficarlos junto con los rendmientos del mercado**
 
-```{r}
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 tickers<-c("AMX","GFNORTEO.MX","BBAJIOO.MX","CEMEXCPO.MX","GICSAB.MX")
 loadSymbols(tickers,from="2016-01-01", to=today(), warnings = "FALSE", env = datos2)
 ```
 
-```{r}
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
 price <- datos2[[tickers[1]]][,6]
 rend_price <- na.omit(diff(log(price))) 
 price1 <- datos2[[tickers[2]]][,6]
@@ -1151,7 +1153,6 @@ plot(datos_price,legend.loc="topleft",lwd = 0.3, col= c("black","blue", "red","p
      main = "Rendimientos de los activos y el mercado", col.main = "orange",bty = 'n',
      bg = "grey")
 ```
-
 
 
 
