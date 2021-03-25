@@ -1075,7 +1075,7 @@ Creemos que el activo se encuentra actualmente en una situación muy delicada, y
 
 **Calcular la correlación que hay entre el activo CREAL con el Mercado (INPC) y otros activos. De manera que se identifiquen los cincos activos mas correlacionados con el activo de estudio. Para este análisis utilizar los precios históricos desde el 2016 hasta la fecha de corte.**
 
-Para el mercado tenemos:
+**Para el mercado tenemos: **
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 loadSymbols("^MXX", from = "2016-01-01", to=today())
@@ -1086,7 +1086,6 @@ names(datos_corr) <- c("IPC",clave)
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE}
 chart.Correlation(na.omit(datos_corr))
-cor(na.omit(datos_corr))
 ```
 
 3 GRADOS DE SIGNIFICANCIA
