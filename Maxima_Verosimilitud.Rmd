@@ -1,0 +1,102 @@
+---
+title: "Clase_Maximina_Verosimilitud"
+author: "José Pablo Vázquez"
+date: "22/3/2021"
+output: html_document
+---
+
+
+```{r Warnings = FALSE}
+library(PerformanceAnalytics)
+library(quantmod)
+library(lubridate)
+library(fTrading)
+library(tidyverse)
+```
+
+
+```{r}
+clave<-"GFNORTEO.MX"
+datos <- new.env()
+getSymbols(clave,from="2016-01-01", to=today(), warnings = "FALSE", env = datos)
+```
+
+```{r}
+activo<-datos[[clave]]
+precio<-activo[,6]
+Rendimiento<-na.omit(diff(log(precio)))
+Var_Real <- Rendimiento^2
+```
+
+Aquí tendría que poner el modelo EWMA:
+Es el que me va a ayudar a sacar las estimaciones para este primer caso
+
+$$\sigma^2_t = (1-\lambda) R^2_{t-1} + \lambda\sigma^2_{t-1}$$
+
+```{r}
+#Calcular la varianza, siguiendo el modelo EWMA, puedo estimar 1308, la primera la vamos a usar como valor inicial
+n <- nrow(Var_Real)
+Var_Est <- matrix(0,n-1,1)
+
+Var_Est[1,1] <-Var_Real[1,1] #punto de partida 
+a <- seq(0.1, .99, by = 0.01) #Aquí se definen los valores de lambda
+Func <- matrix(0,n-1,1) #Aquí se van a guardar los valores de las funciones de maxima verosimilitud
+Resultados <- matrix(0,length(a),2)
+colnames (Resultados) <- c("Lambda", "SumaFunc")
+j = 0
+for(L in a){ 
+  for (i in 2:(n-1)){
+    Var_Est[i,1] <- (1-L)*Var_Real[i-1,1] + L*Var_Est[i-1,1]
+    Func[i,1] <- -log(Var_Est[i,1]) - Var_Real[i,1]/Var_Est[i,1]
+  }
+  j <- j+1
+  Fsuma <- sum(Func)
+  Resultados[j,1] <- L
+  Resultados[j,2] <- Fsuma
+}
+```
+
+
+
+```{r}
+Loptimo <- Resultados[order(Resultados[,"SumaFunc"], decreasing = TRUE),]
+Loptimo <- as.numeric(Loptimo[1,1])
+Loptimo #Lambda óptimo
+```
+
+Con ese valor de lambda, tenemos que el modelo esta dado por
+
+$$\sigma^2_t = (1-0.87) R^2_{t-1} + 0.87\sigma_{t-1}$$
+Vamos a generar estimaciones con este modelo
+
+Hacemos estimaciones usando el modelo encontrado
+
+
+```{r}
+Var_Est_EWMA <- xts(emaTA(Var_Real, lambda = Loptimo), order.by = date(Rendimiento))
+# tenemos un vector con la varianza real
+# un vector con las estimaciones, vamos a comparar
+
+Resultados2 <- merge.xts(Var_Real, Var_Est_EWMA)
+names(Resultados2) <- c("Var_Real", "Var_EWMA")
+plot(Resultados2,legend.loc="top",lwd = 0.5, col= c("black","blue"))
+```
+
+Vamos ahora con una estimación al futuro con :
+
+$$\sigma_{22/03} = (1-0.87)R^2_{19/03} + 0.87\sigma^2_{19/03} $$
+
+```{r}
+Vol_Fut <- as.numeric(sqrt((1-Loptimo)*Var_Real[n,1] + Loptimo*Var_Est_EWMA[n,1]))
+Vol_Fut
+```
+
+Tenemos una volatilidad futura del 3.79%
+
+
+```{r}
+Fecha_Est <- date(Var_Real[n,1])+3
+Fecha_Est
+```
+
+Esperamos que para el día 22 exista una volatilidad del 3.79%
