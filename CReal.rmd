@@ -1092,6 +1092,9 @@ chart.Correlation(na.omit(datos_corr))
 Indican la validez entre la relación que hay entre ambas variables, es estadisticamente significativa e importante al 99% de confianza.
 
 Correlación de mi activo con el resto de activos que hay en el mercado.
+Recordando un poco la **Correlación** en activos también es conocida como la relación que existe entre los movimientos de un activo con respecto a otro en este caso utilizamos los rendimientos de nuestro activo. Analizar cómo se mueven los diferentes activos financieros entre sí es crucial para poder tomar desiciones mas fundamentadas con mas de un solo activo.
+
+Nuestro activo con un nivel de confianza del 99% nuestro activo tiene un 39% de correlacion con el indice de IPC (el principal índice bursátil de la Bolsa Mexicana de Valores, el cual muestra concentradas las 35 principales empresas listadas en la Bolsa Mexicana de Valores).
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 library(readr)
@@ -1125,6 +1128,14 @@ max_corr <- tibble(Emisoras = max_corr[,1], Correlación = max_corr[,2])
 rbind(max_corr)
 ```
 
+Aqui podemos darnos cuenta que con las empresas mas importantes de la Bolsa Mexicana de Valores dentro del IPC :
+
+La primer empresa la cual tiene más correlacion con nuestro activo es AMX (América Móvil) con un 32.664 % de correlacion.
+
+Con una correlacion muy cercana tambien tenemos a GFNORTEO.MX (Grupo Financiero Banorte) cuenta con 32.59283	% de correlacion con nuestro activo las demas empresas como son BBAJIOO.MX	29.76006 %, CEMEXCPO.MX	29.48697 % , GICSAB.MX 29.39783	% presentan una correlacion con nuestro activo de 29 % aproximadamente.
+
+Estas serian las 5 principales empresas con mayor correlacion con nuestro activo CREAL.MX.
+
 
 ## *Incluir la grafica con los rendimientos históricos de los seis activos, así como del mercado.*
 
@@ -1153,6 +1164,11 @@ plot(datos_price,legend.loc="topleft",lwd = 0.3, col= c("black","blue", "red","p
      bg = "grey")
 ```
 
+Al utilizar los rendimientos de los activos mas correlacionados sobre nuestro activo CREAL los graficamos junto con los rendimientos del mercado, podemos ver que los rendimientos de los activos y del mercado de una fecha de Enero 09 de 2017 a 30 de Noviembre del 2020 oscilan en los valores de -0.15 y 0.15 en rendimientos esto quiere decir que se mueven entre perdidas y ganancias en los limites ya mencionados.
+
+Podemos ver outliers en los rendimientos, GICSAB presenta los mayores outliers siendo mas bajos que -0.15 por el contrario de manera positiva el rendimiento de nuestro activo CREAL.MX en entre las fechas de Dicimebre de 2019 a Enero de 2020 junto con GICSAB anteriormente mencionada pasan el limite de rendimiento de la medida de nuestra grafica de 0.15 mostrando los mayores outliers de rendimientos positivos.
+
+Algo curioso que cabe resaltar es que el activo que mencionamos con anterioridad GICSAB tiene los mayores rendimientos en cuanto a outliers asi como tambien las mayores perdidas de todos los activos graficados asi como tambien los rendimientos del mercado.
 
 
 
