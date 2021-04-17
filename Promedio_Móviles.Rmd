@@ -1,0 +1,126 @@
+---
+title: "Promedio móvil"
+author: "José Pablo Vázquez"
+date: "18/3/2021"
+output: html_document
+---
+
+```{r}
+library(PerformanceAnalytics)
+library(quantmod)
+library(lubridate)
+```
+
+
+
+```{r}
+clave<-"GFNORTEO.MX"
+datos <- new.env()
+getSymbols(clave,from="2016-01-01", to=today(), warnings = "FALSE", env = datos)
+```
+
+
+
+```{r}
+activo<-datos[[clave]]
+precio<-activo[,6]
+Rendimiento<-na.omit(diff(log(precio)))
+```
+
+El comportamiento real del activo considerando la primera estimación de volatilidad para cada caso es la raíz del rendimeinto al cuadrado.
+
+$$\sigma_i = \sqrt{R_i^2}$$
+
+```{r}
+Rendimiento2 <- Rendimiento^2
+Var_Real<-Rendimiento^2
+Vol_Real<-sqrt(Var_Real)
+Real<-merge.xts(Rendimiento, Vol_Real, -Vol_Real)
+names(Real)<-c("Rendimiento","Vol_pos","Vol_Neg")
+plot(Real, legend.loc = "top",main="Valores Observados", lwd=.5)
+```
+
+
+```{r}
+mavback <- function(x,n){stats::filter(x, c(0, rep(1/n,n)), sides=1) }
+```
+
+
+```{r}
+Var_Est5<-xts(mavback(Var_Real, n=5), order.by = date(Var_Real))
+Var_Est10<-xts(mavback(Var_Real, n=10), order.by = date(Var_Real))
+Var_Est20<-xts(mavback(Var_Real, n=20), order.by = date(Var_Real))
+Var_Est40<-xts(mavback(Var_Real, n=40), order.by = date(Var_Real))
+Var_Est<-merge.xts(Var_Est5, Var_Est10, Var_Est20, Var_Est40)
+Var_Est<-merge.xts(Var_Est5, Var_Est10, Var_Est20, Var_Est40)
+names(Var_Est)<-c("M5","M10","M20","M40")
+plot(Var_Est, legend.loc="top", main = "Estimaciones de la Varianza", lwd=.5)
+```
+
+
+```{r}
+Dif_Est<-merge.xts((Var_Real-Var_Est5)^2,(Var_Real-Var_Est10)^2, (Var_Real-Var_Est20)^2, (Var_Real-Var_Est40)^2)
+
+names(Dif_Est)<-c("5","10","20","40")
+
+plot(Dif_Est, legend.loc = "bottom", main="Diferencias en la estimación", lwd=.5)
+```
+
+
+```{r}
+RMSE<-as.data.frame(sqrt(colMeans(na.omit(Dif_Est))))
+names(RMSE)<-c("RMSE")
+RMSE
+```
+
+
+```{r}
+M_opt<-subset(RMSE, RMSE==min(RMSE))
+m<-as.numeric(row.names(M_opt))
+m
+```
+
+
+```{r}
+if(m==5){Var_Opt<-Var_Est5}
+if(m==10){Var_Opt<-Var_Est10}
+if(m==20){Var_Opt<-Var_Est20}
+```
+
+
+```{r}
+if(m==40){Var_Opt<-Var_Est40}
+Resultados<-merge.xts(Vol_Real, sqrt(Var_Opt))
+names(Resultados)<-c("Vol_Real", "Vol_Estimada")
+plot(Resultados, legend.loc="top",main="Resultados", lwd=c(.4,.8), col=c("blue", "red"))
+```
+
+
+```{r}
+n<-nrow(Var_Real)
+Vol_Est_Fut <- sqrt(mean(Var_Real[(n-m):n,]))
+Vol_Est_Fut
+```
+
+
+
+```{r}
+Fecha_Est <- date(Var_Real[n])+1
+Fecha_Est
+```
+
+
+Entonces el modelo me dice que para el día `Fecha_Est` se estima una volatilidad diaria de `r paste(format(Vol_Est_Fut*100, digits=4),"%") `
+
+
+
+
+
+
+
+
+
+
+
+
+
